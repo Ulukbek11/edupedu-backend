@@ -21,39 +21,39 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/subjects")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class SubjectController {
 
     private final SubjectService subjectService;
 
-    @GetMapping
+    @GetMapping("/admin/subjects")
     public ResponseEntity<List<SubjectDTO>> getAllSubjects() {
         return new ResponseEntity<>(subjectService.getAllSubjects(), HttpStatus.OK);
     }
 
-    @GetMapping("/university/{universityId}")
+    @GetMapping("/university/{universityId}/subjects")
     public ResponseEntity<List<SubjectDTO>> getSubjectsByUniversityId(@PathVariable Long universityId) {
         return new ResponseEntity<>(subjectService.getSubjectsByUniversityId(universityId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/admin/subjects/{id}")
     public ResponseEntity<SubjectDTO> getSubjectById(@PathVariable Long id) {
         return new ResponseEntity<>(subjectService.getSubjectById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/subjects")
     public ResponseEntity<SubjectDTO> createSubject(@RequestBody @Valid CreateSubjectRequest request) {
         return new ResponseEntity<>(subjectService.createSubject(request), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/subjects/{id}")
     public ResponseEntity<SubjectDTO> updateSubject(@PathVariable Long id,
             @RequestBody @Valid CreateSubjectRequest request) {
         return new ResponseEntity<>(subjectService.updateSubject(id, request), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/subjects/{id}")
     public ResponseEntity<Void> deleteSubject(@PathVariable Long id) {
         subjectService.deleteSubject(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

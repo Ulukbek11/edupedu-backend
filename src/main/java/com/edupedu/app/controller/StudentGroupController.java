@@ -20,34 +20,34 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/student-groups")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class StudentGroupController {
 
     private final StudentGroupService studentGroupService;
 
-    @GetMapping
+    @GetMapping("/student-groups")
     public ResponseEntity<List<StudentGroup>> getAllStudentGroups() {
         return new ResponseEntity<>(studentGroupService.getAllStudentGroups(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/student-groups/{id}")
     public ResponseEntity<StudentGroup> getStudentGroupById(@PathVariable Long id) {
         return new ResponseEntity<>(studentGroupService.getStudentGroupById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/student-groups")
     public ResponseEntity<StudentGroup> createStudentGroup(@RequestBody @Valid StudentGroup studentGroup) {
         return new ResponseEntity<>(studentGroupService.createStudentGroup(studentGroup), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/student-groups/{id}")
     public ResponseEntity<StudentGroup> updateStudentGroup(@PathVariable Long id,
             @RequestBody @Valid StudentGroup studentGroup) {
         return new ResponseEntity<>(studentGroupService.updateStudentGroup(id, studentGroup), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/student-groups/{id}")
     public ResponseEntity<Void> deleteStudentGroup(@PathVariable Long id) {
         studentGroupService.deleteStudentGroup(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

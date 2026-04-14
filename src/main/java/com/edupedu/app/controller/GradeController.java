@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/grades")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class GradeController {
 
     private final GradeService gradeService;
     private final StudentRepository studentRepository;
 
-    @GetMapping
+    @GetMapping("/grades")
     public ResponseEntity<List<GradeDTO>> getMyGrades(@AuthenticationPrincipal User user) {
         if (user.getRole() == Role.ROLE_UNIVERSITY_ADMIN || user.getRole() == Role.ROLE_ADMIN) {
             return ResponseEntity.ok(gradeService.getAllGrades());
@@ -34,7 +34,7 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getStudentGrades(student.getId()));
     }
 
-    @GetMapping("/subject/{subjectId}")
+    @GetMapping("/grades/subject/{subjectId}")
     public ResponseEntity<List<GradeDTO>> getMyGradesBySubject(
             @AuthenticationPrincipal User user,
             @PathVariable Long subjectId) {
@@ -46,7 +46,7 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getStudentGradesBySubject(student.getId(), subjectId));
     }
 
-    @GetMapping("/averages")
+    @GetMapping("/grades/averages")
     public ResponseEntity<Map<String, Double>> getMyGradeAverages(@AuthenticationPrincipal User user) {
         if (user.getRole() == Role.ROLE_UNIVERSITY_ADMIN || user.getRole() == Role.ROLE_ADMIN) {
             return ResponseEntity.ok(gradeService.getGradeAverages());
@@ -56,19 +56,19 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getStudentGradeAverages(student.getId()));
     }
 
-    @GetMapping("/student/{studentId}")
+    @GetMapping("/teacher/grades/student/{studentId}")
     public ResponseEntity<List<GradeDTO>> getStudentGrades(@PathVariable Long studentId) {
         return ResponseEntity.ok(gradeService.getStudentGrades(studentId));
     }
 
-    @PostMapping
+    @PostMapping("/teacher/grades")
     public ResponseEntity<GradeDTO> createGrade(
             @Valid @RequestBody CreateGradeRequest request,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(gradeService.createGrade(request, user.getId()));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/teacher/grades/{id}")
     public ResponseEntity<Void> deleteGrade(@PathVariable Long id) {
         gradeService.deleteGrade(id);
         return ResponseEntity.noContent().build();

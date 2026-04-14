@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/attendance")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class AttendanceController {
 
@@ -37,7 +37,7 @@ public class AttendanceController {
 
         private final StudentRepository studentRepository;
 
-    @GetMapping("/reports/attendance")
+    @GetMapping("/attendance/reports/attendance")
         public ResponseEntity<Map<String, Object>> getAttendanceStats(
                         @RequestParam(required = false) Long classGroupId,
                         @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate startDate,
@@ -47,7 +47,7 @@ public class AttendanceController {
 
 
 
-         @GetMapping
+         @GetMapping("/attendance")
     public ResponseEntity<List<AttendanceDTO>> getMyAttendance(@AuthenticationPrincipal User user) {
         if (user.getRole() == Role.ROLE_UNIVERSITY_ADMIN || user.getRole() == Role.ROLE_ADMIN) {
             return ResponseEntity.ok(attendanceService.getAllAttendance());
@@ -57,7 +57,7 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.getStudentAttendance(student.getId()));
     }
 
-    @GetMapping("/range")
+    @GetMapping("/attendance/range")
     public ResponseEntity<List<AttendanceDTO>> getMyAttendanceByDateRange(
             @AuthenticationPrincipal User user,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -72,7 +72,7 @@ public class AttendanceController {
                 .ok(attendanceService.getStudentAttendanceByDateRange(student.getId(), startDate, endDate));
     }
 
-    @GetMapping("/stats")
+    @GetMapping("/attendance/stats")
     public ResponseEntity<Map<String, Long>> getMyAttendanceStats(@AuthenticationPrincipal User user) {
         if (user.getRole() == Role.ROLE_UNIVERSITY_ADMIN || user.getRole() == Role.ROLE_ADMIN) {
             return ResponseEntity.ok(attendanceService.getAttendanceStats());
@@ -82,19 +82,19 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.getStudentAttendanceStats(student.getId()));
     }
 
-    @GetMapping("/student/{studentId}")
+    @GetMapping("/attendance/student/{studentId}")
     public ResponseEntity<List<AttendanceDTO>> getStudentAttendance(@PathVariable Long studentId) {
         return ResponseEntity.ok(attendanceService.getStudentAttendance(studentId));
     }
 
-    @PostMapping
+    @PostMapping("/teacher/attendance")
     public ResponseEntity<List<AttendanceDTO>> markAttendance(
             @Valid @RequestBody MarkAttendanceRequest request,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(attendanceService.markAttendance(request, user.getId()));
     }
 
-    @GetMapping("/schedule/{scheduleId}")
+    @GetMapping("/teacher/attendance/schedule/{scheduleId}")
     public ResponseEntity<List<AttendanceDTO>> getScheduleAttendance(
             @PathVariable Long scheduleId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

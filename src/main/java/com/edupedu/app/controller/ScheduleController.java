@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/schedule")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ScheduleController {
 
@@ -32,7 +32,7 @@ public class ScheduleController {
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
 
-    @GetMapping("/week")
+    @GetMapping("/schedule/week")
     public ResponseEntity<List<ScheduleDTO>> getMyWeeklySchedule(@AuthenticationPrincipal User user) {
         List<ScheduleDTO> schedule;
 
@@ -54,27 +54,27 @@ public class ScheduleController {
         return ResponseEntity.ok(schedule);
     }
 
-    @GetMapping("/class/{classGroupId}")
+    @GetMapping("/schedule/class/{classGroupId}")
     public ResponseEntity<List<ScheduleDTO>> getClassSchedule(@PathVariable Long classGroupId) {
         return ResponseEntity.ok(scheduleService.getWeeklyScheduleForClass(classGroupId));
     }
 
-    @GetMapping("/teacher/{teacherId}")
+    @GetMapping("/schedule/teacher/{teacherId}")
     public ResponseEntity<List<ScheduleDTO>> getTeacherSchedule(@PathVariable Long teacherId) {
         return ResponseEntity.ok(scheduleService.getWeeklyScheduleForTeacher(teacherId));
     }
 
-    @PostMapping
+    @PostMapping("/admin/schedule")
     public ResponseEntity<ScheduleDTO> createSchedule(@Valid @RequestBody CreateScheduleRequest request) {
         return ResponseEntity.ok(scheduleService.createSchedule(request));
     }
 
-    @PostMapping("/generate")
+    @PostMapping("/admin/schedule/generate")
     public ResponseEntity<List<ScheduleDTO>> generateSchedule(@Valid @RequestBody GenerateScheduleRequest request) {
         return ResponseEntity.ok(scheduleService.generateSchedule(request));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/schedule/{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return ResponseEntity.noContent().build();

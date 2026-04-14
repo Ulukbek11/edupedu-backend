@@ -23,67 +23,67 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/v1/students")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
 
-    @GetMapping
+    @GetMapping("/admin/students")
     public ResponseEntity<List<StudentResponse>> getAllStudents() {
         return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
     }
 
-    @GetMapping("/university")
+    @GetMapping("/university/students")
     public ResponseEntity<List<Student>> getAllStudentsFromUniversity(@RequestParam Long universityId) {
         return new ResponseEntity<>(studentService.getAllStudentsFromUniversity(universityId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<StudentResponse> getStudentById(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/students/user/{userId}")
     public ResponseEntity<StudentResponse> getStudentByUserId(@PathVariable Long userId) {
         return new ResponseEntity<>(studentService.getStudentByUserId(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/group/{groupId}")
+    @GetMapping("/students/group/{groupId}")
     public ResponseEntity<List<StudentResponse>> getStudentsByGroupId(@PathVariable Long groupId) {
         return new ResponseEntity<>(studentService.getStudentsByGroupId(groupId), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/students")
     public ResponseEntity<StudentResponse> createStudent(@RequestBody @Valid StudentCreateRequest request) {
         return new ResponseEntity<>(studentService.createStudent(request), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/students/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable Long id,
                                                           @RequestBody @Valid StudentUpdateRequest request) {
         return new ResponseEntity<>(studentService.updateStudent(id, request), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/students/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/unassigned")
+    @GetMapping("/admin/students/unassigned")
     public ResponseEntity<List<StudentResponse>> getUnassignedStudents(@RequestParam Long universityId) {
         return new ResponseEntity<>(studentService.getUnassignedStudents(universityId), HttpStatus.OK);
     }
 
-    @PutMapping("/assign/{id}")
+    @PutMapping("/admin/students/assign/{id}")
     public String putMethodName(@PathVariable String id, @RequestBody String entity) {
         //TODO: process PUT request
         
         return entity;
     }
 
-    @PutMapping("/{studentId}/group")
+    @PutMapping("/admin/students/{studentId}/group")
     @Transactional
     public ResponseEntity<StudentDTO> updateStudentClass(
                     @PathVariable Long studentId,
@@ -91,7 +91,7 @@ public class StudentController {
             return ResponseEntity.ok(studentService.updateStudentGroup(studentId, studentGroupId));
     }
 
-    @PutMapping("/bulk-assign")
+    @PutMapping("/admin/bulk-assign")
         @Transactional
         public ResponseEntity<List<StudentDTO>> bulkAssignStudentsToClass(@RequestBody BulkAssignRequest request) {
                 return ResponseEntity.ok(studentService.bulkAssignStudentsToClass(request));

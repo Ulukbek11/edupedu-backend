@@ -22,14 +22,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/announcements")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class AnnouncementController {
 
     private final AnnouncementService announcementService;
     private final StudentRepository studentRepository;
 
-    @GetMapping
+    @GetMapping("/announcements")
     public ResponseEntity<List<AnnouncementDTO>> getMyAnnouncements(@AuthenticationPrincipal User user) {
         List<AnnouncementDTO> announcements;
 
@@ -47,19 +47,19 @@ public class AnnouncementController {
         return ResponseEntity.ok(announcements);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/announcements/all")
     public ResponseEntity<List<AnnouncementDTO>> getAllAnnouncements() {
         return ResponseEntity.ok(announcementService.getAllAnnouncements());
     }
 
-    @PostMapping
+    @PostMapping("/admin/announcements")
     public ResponseEntity<AnnouncementDTO> createAnnouncement(
             @Valid @RequestBody CreateAnnouncementRequest request,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(announcementService.createAnnouncement(request, user.getId()));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/announcements/{id}")
     public ResponseEntity<Void> deleteAnnouncement(@PathVariable Long id) {
         announcementService.deleteAnnouncement(id);
         return ResponseEntity.noContent().build();

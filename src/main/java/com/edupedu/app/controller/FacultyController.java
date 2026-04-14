@@ -21,38 +21,38 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/faculties")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class FacultyController {
 
     private final FacultyService facultyService;
 
-    @GetMapping
+    @GetMapping("/faculties")
     public ResponseEntity<List<Faculty>> getAllFaculties() {
         return new ResponseEntity<>(facultyService.getAllFaculties(), HttpStatus.OK);
     }
 
-    @GetMapping("/university")
+    @GetMapping("/faculties/university")
     public ResponseEntity<List<Faculty>> getFacultiesByUniversity(@RequestParam Long universityId) {
         return new ResponseEntity<>(facultyService.getFacultiesByUniversityId(universityId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/faculties/{id}")
     public ResponseEntity<Faculty> getFacultyById(@PathVariable Long id) {
         return new ResponseEntity<>(facultyService.getFacultyById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/faculties")
     public ResponseEntity<Faculty> createFaculty(@RequestBody @Valid Faculty faculty) {
         return new ResponseEntity<>(facultyService.createFaculty(faculty), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/faculties/{id}")
     public ResponseEntity<Faculty> updateFaculty(@PathVariable Long id, @RequestBody @Valid Faculty faculty) {
         return new ResponseEntity<>(facultyService.updateFaculty(id, faculty), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/faculties/{id}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

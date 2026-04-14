@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<AdminRegistrationResponse<User, ?>> register(@RequestBody @Valid RegistrationRequest request) {
         return new ResponseEntity<>(authService.register(request), HttpStatus.OK);
     }
@@ -57,12 +57,12 @@ public class AuthController {
         return new ResponseEntity<>(authService.refreshToken(request), HttpStatus.OK);
     }
 
-    @PostMapping("/forgot-password")
+    @PostMapping("/auth/forgot-password")
     public ResponseEntity<Map<String, String>> processForgotPassword(@RequestParam String email) {
         return new ResponseEntity<>(authService.processForgotPassword(email), HttpStatus.OK);
     }
 
-    @PostMapping("/reset-password")
+    @PostMapping("/auth/reset-password")
     public ResponseEntity<Map<String, String>> processResetPassword(
         @RequestParam String token,
         @RequestParam String password,

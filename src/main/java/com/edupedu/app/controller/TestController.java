@@ -25,13 +25,13 @@ import com.edupedu.app.service.CourseTestService.QuestionDTO;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/tests")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class TestController {
 
         private final CourseTestService testService;
 
-        @PostMapping
+        @PostMapping("/teacher/tests")
         public ResponseEntity<TestDTO> createTest(@AuthenticationPrincipal User user,
                         @RequestBody CreateTestRequest request) {
                 CourseTest test = testService.createTest(
@@ -41,7 +41,7 @@ public class TestController {
                 return ResponseEntity.ok(toDTO(test));
         }
 
-        @PostMapping("/{testId}/questions")
+        @PostMapping("/teacher/tests/{testId}/questions")
         public ResponseEntity<QuestionResponseDTO> addQuestion(@PathVariable Long testId,
                         @AuthenticationPrincipal User user,
                         @RequestBody AddQuestionRequest request) {
@@ -51,18 +51,18 @@ public class TestController {
                                 question.getCourseTestQuestionType().name(), question.getOrderIndex()));
         }
 
-        @GetMapping("/{testId}")
+        @GetMapping("/tests/{testId}")
         public ResponseEntity<TestDTO> getTest(@PathVariable Long testId) {
                 CourseTest test = testService.findTestById(testId);
                 return ResponseEntity.ok(toDTO(test));
         }
 
-        @GetMapping("/{testId}/questions")
+        @GetMapping("/tests/{testId}/questions")
         public ResponseEntity<List<QuestionDTO>> getQuestions(@PathVariable Long testId) {
                 return ResponseEntity.ok(testService.getQuestionsForStudent(testId));
         }
 
-        @PostMapping("/{testId}/attempts")
+        @PostMapping("/tests/{testId}/attempts")
         public ResponseEntity<AttemptDTO> startAttempt(@PathVariable Long testId,
                         @AuthenticationPrincipal User user) {
                 CourseTestAttempt attempt = testService.startAttempt(testId, user.getId());
@@ -70,7 +70,7 @@ public class TestController {
                                 null, null, null));
         }
 
-        @PostMapping("/attempts/{attemptId}/submit")
+        @PostMapping("/tests/attempts/{attemptId}/submit")
         public ResponseEntity<AttemptDTO> submitAttempt(@PathVariable Long attemptId,
                         @AuthenticationPrincipal User user,
                         @RequestBody SubmitAnswersRequest request) {

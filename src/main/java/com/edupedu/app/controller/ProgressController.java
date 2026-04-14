@@ -18,26 +18,26 @@ import com.edupedu.app.service.ProgressService.StudentProgressDTO;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/progress")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ProgressController {
 
     private final ProgressService progressService;
 
-    @PostMapping("/lessons/{lessonId}/complete")
+    @PostMapping("/progress/lessons/{lessonId}/complete")
     public ResponseEntity<Void> markLessonComplete(@PathVariable Long lessonId,
             @AuthenticationPrincipal User user) {
         progressService.markLessonComplete(user.getId(), lessonId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/courses/{courseId}")
+    @GetMapping("/progress/courses/{courseId}")
     public ResponseEntity<CourseProgressDTO> getMyCourseProgress(@PathVariable Long courseId,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(progressService.getCourseProgress(user.getId(), courseId));
     }
 
-    @GetMapping("/courses/{courseId}/students")
+    @GetMapping("/teacher/progress/courses/{courseId}/students")
     public ResponseEntity<List<StudentProgressDTO>> getStudentProgress(@PathVariable Long courseId) {
         return ResponseEntity.ok(progressService.getStudentProgressForCourse(courseId));
     }

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/api/v1/teachers")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class TeacherController {
 
@@ -34,44 +34,44 @@ public class TeacherController {
 
     private final ReportService reportService;
 
-    @GetMapping
+    @GetMapping("/teachers")
     public ResponseEntity<List<TeacherResponse>> getAllTeachers() {
         return new ResponseEntity<>(teacherService.getAllTeachers(), HttpStatus.OK);
     }
 
-    @GetMapping("/university")
-    public ResponseEntity<List<Teacher>> getAllTeachersFromUniversity(@RequestParam Long universityId) {
+    @GetMapping("/university/{universityId}/teachers")
+    public ResponseEntity<List<Teacher>> getAllTeachersFromUniversity(@PathVariable Long universityId) {
         return new ResponseEntity<>(teacherService.getAllTeachersFromUniversity(universityId), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/admin/teachers/{id}")
     public ResponseEntity<TeacherResponse> getTeacherById(@PathVariable Long id) {
         return new ResponseEntity<>(teacherService.getTeacherById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/admin/teachers/user/{userId}")
     public ResponseEntity<TeacherResponse> getTeacherByUserId(@PathVariable Long userId) {
         return new ResponseEntity<>(teacherService.getTeacherByUserId(userId), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/admin/teachers")
     public ResponseEntity<TeacherResponse> createTeacher(@RequestBody @Valid TeacherCreateRequest request) {
         return new ResponseEntity<>(teacherService.createTeacher(request), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/teachers/{id}")
     public ResponseEntity<TeacherResponse> updateTeacher(@PathVariable Long id,
                                                           @RequestBody @Valid TeacherUpdateRequest request) {
         return new ResponseEntity<>(teacherService.updateTeacher(id, request), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/teachers/{id}")
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
         teacherService.deleteTeacher(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{teacherId}/subjects")
+    @PutMapping("/teacher/teachers/{teacherId}/subjects")
         @Transactional
         public ResponseEntity<TeacherDTO> updateTeacherSubjects(
                         @PathVariable Long teacherId,
@@ -79,7 +79,7 @@ public class TeacherController {
             return new ResponseEntity<>(teacherService.updateTeacherSubjects(teacherId, subjectIds), HttpStatus.OK);
         }
 
-    @GetMapping("/getWorkload")
+    @GetMapping("/admin/teachers/getWorkload")
     public ResponseEntity<Map<String, Object>> getTeacherWorkload(@RequestParam Long teacherId, @RequestParam int year, @RequestParam int month) {
         return new ResponseEntity<>(reportService.getTeacherWorkload(teacherId, year, month), HttpStatus.OK);
     }

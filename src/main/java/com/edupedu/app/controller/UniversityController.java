@@ -20,33 +20,33 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/universities")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UniversityController {
 
     private final UniversityService universityService;
 
-    @GetMapping
+    @GetMapping("/universities")
     public ResponseEntity<List<University>> getAllUniversities() {
         return new ResponseEntity<>(universityService.getAllUniversities(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/universities/{id}")
     public ResponseEntity<University> getUniversityById(@PathVariable Long id) {
         return new ResponseEntity<>(universityService.getUniversityById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/universities")
     public ResponseEntity<University> createUniversity(@RequestBody @Valid University university) {
         return new ResponseEntity<>(universityService.createUniversity(university), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/universities/{id}")
     public ResponseEntity<University> updateUniversity(@PathVariable Long id, @RequestBody @Valid University university) {
         return new ResponseEntity<>(universityService.updateUniversity(id, university), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/universities/{id}")
     public ResponseEntity<Void> deleteUniversity(@PathVariable Long id) {
         universityService.deleteUniversity(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

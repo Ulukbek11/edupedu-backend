@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edupedu.app.controller.CourseController.LessonDTO;
-import com.edupedu.app.controller.CourseController.ModuleDTO;
-import com.edupedu.app.controller.CourseController.TestRefDTO;
+
 import com.edupedu.app.model.Course;
 import com.edupedu.app.model.User;
 import com.edupedu.app.model.enums.ContentType;
@@ -27,13 +25,13 @@ import com.edupedu.app.model.CourseLesson;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/courses")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CourseController {
 
         private final CourseService courseService;
 
-        @PostMapping
+        @PostMapping("/teacher/courses")
         public ResponseEntity<CourseDTO> create(@AuthenticationPrincipal User user,
                         @RequestBody CreateCourseRequest request) {
                 Course course = courseService.createCourse(
@@ -42,7 +40,7 @@ public class CourseController {
                 return ResponseEntity.ok(toDTO(course));
         }
 
-        @GetMapping("/catalog")
+        @GetMapping("/courses/catalog")
         public ResponseEntity<List<CourseDTO>> catalog(@AuthenticationPrincipal User user) {
                 Long universityId = user.getUniversity() != null ? user.getUniversity().getId() : null;
                 List<CourseDTO> courses = courseService.findCatalog(universityId).stream()
@@ -50,14 +48,14 @@ public class CourseController {
                 return ResponseEntity.ok(courses);
         }
 
-        @GetMapping("/my")
+        @GetMapping("/teacher/courses/my")
         public ResponseEntity<List<CourseDTO>> myCourses(@AuthenticationPrincipal User user) {
                 List<CourseDTO> courses = courseService.findByInstructor(user.getId()).stream()
                                 .map(this::toDTO).toList();
                 return ResponseEntity.ok(courses);
         }
 
-        @GetMapping("/{id}")
+        @GetMapping("/teacher/courses/{id}")
         public ResponseEntity<CourseDetailDTO> getById(@PathVariable Long id) {
                 Course course = courseService.findById(id);
                 List<Module> modules = courseService.getModules(id);
@@ -71,7 +69,7 @@ public class CourseController {
                 return ResponseEntity.ok(new CourseDetailDTO(toDTO(course), moduleDTOs));
         }
 
-        @PutMapping("/{id}")
+        @PutMapping("/teacher/courses/{id}")
         public ResponseEntity<CourseDTO> update(@PathVariable Long id,
                         @AuthenticationPrincipal User user,
                         @RequestBody CreateCourseRequest request) {
@@ -80,13 +78,13 @@ public class CourseController {
                 return ResponseEntity.ok(toDTO(course));
         }
 
-        @DeleteMapping("/{id}")
+        @DeleteMapping("/teacher/courses/{id}")
         public ResponseEntity<Void> delete(@PathVariable Long id) {
                 courseService.deleteCourse(id);
                 return ResponseEntity.noContent().build();
         }
 
-        @PostMapping("/{courseId}/modules")
+        @PostMapping("/teacher/courses/{courseId}/modules")
         public ResponseEntity<ModuleDTO> addModule(@PathVariable Long courseId,
                         @AuthenticationPrincipal User user,
                         @RequestBody CreateModuleRequest request) {
@@ -96,7 +94,7 @@ public class CourseController {
                                                 List.of()));
         }
 
-        @PostMapping("/{courseId}/modules/{moduleId}/lessons")
+        @PostMapping("/teacher/courses/{courseId}/modules/{moduleId}/lessons")
         public ResponseEntity<LessonDTO> addLesson(@PathVariable Long courseId,
                         @PathVariable Long moduleId,
                         @AuthenticationPrincipal User user,

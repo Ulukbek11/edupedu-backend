@@ -18,27 +18,27 @@ import com.edupedu.app.service.CourseEnrollmentService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/enrollments")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class EnrollmentController {
 
     private final CourseEnrollmentService courseEnrollmentService;
 
-    @PostMapping
+    @PostMapping("/enrollments")
     public ResponseEntity<EnrollmentDTO> enroll(@AuthenticationPrincipal User user,
             @RequestBody EnrollRequest request) {
         CourseEnrollment enrollment = courseEnrollmentService.enroll(user.getId(), request.courseId(), request.password());
         return ResponseEntity.ok(toDTO(enrollment));
     }
 
-    @GetMapping("/my")
+    @GetMapping("/enrollments/my")
     public ResponseEntity<List<EnrollmentDTO>> myEnrollments(@AuthenticationPrincipal User user) {
         List<EnrollmentDTO> enrollments = courseEnrollmentService.getMyEnrollments(user.getId()).stream()
                 .map(this::toDTO).toList();
         return ResponseEntity.ok(enrollments);
     }
 
-    @GetMapping("/course/{courseId}")
+    @GetMapping("/teacher/enrollments/course/{courseId}")
     public ResponseEntity<List<EnrollmentDTO>> courseEnrollments(@PathVariable Long courseId) {
         List<EnrollmentDTO> enrollments = courseEnrollmentService.getCourseEnrollments(courseId).stream()
                 .map(this::toDTO).toList();

@@ -1,6 +1,7 @@
 # EduPedu API Documentation
 
 > **Base URL:** `http://localhost:8080`
+> **API Prefix:** `/api/v1`
 > **Content-Type:** `application/json`
 > **Authentication:** Bearer JWT Token (RSA256 signed)
 
@@ -8,49 +9,46 @@
 
 ## Table of Contents
 
-1. [Authentication Flow](#1-authentication)
-2. [Universities](#2-universities)
-3. [Users](#3-users)
-4. [Faculties](#4-faculties)
-5. [Subjects](#5-subjects)
-6. [Teachers](#6-teachers)
-7. [Students](#7-students)
-8. [Student Groups](#8-student-groups)
-9. [Courses & LMS](#9-courses--lms)
-10. [Enrollments](#10-enrollments)
-11. [Grades](#11-grades)
-12. [Schedule](#12-schedule)
-13. [Attendance](#13-attendance)
-14. [Announcements](#14-announcements)
-15. [Messages](#15-messages)
-16. [Tests & Quizzes](#16-tests--quizzes)
-17. [Progress Tracking](#17-progress-tracking)
-18. [Enums Reference](#18-enums-reference)
-19. [Role-Based Access Matrix](#19-role-based-access-matrix)
-20. [Error Handling](#20-error-handling)
+1. [URL Structure & Security Model](#1-url-structure--security-model)
+2. [Authentication](#2-authentication)
+3. [Admin Endpoints `/admin/`](#3-admin-endpoints)
+4. [Teacher Endpoints `/teacher/`](#4-teacher-endpoints)
+5. [University-Scoped Endpoints `/university/`](#5-university-scoped-endpoints)
+6. [Public Read Endpoints](#6-public-read-endpoints)
+7. [Student/General Endpoints](#7-studentgeneral-endpoints)
+8. [Enums Reference](#8-enums-reference)
+9. [Role-Based Access Matrix](#9-role-based-access-matrix)
+10. [Error Handling](#10-error-handling)
 
 ---
 
-## Authentication Headers
+## 1. URL Structure & Security Model
 
-All authenticated endpoints require:
+The API uses a **prefix-based authorization** model. The URL prefix determines access control:
 
+```
+/api/v1/auth/**        → Public (no auth required)
+/api/v1/admin/**       → ADMIN, UNIVERSITY_ADMIN
+/api/v1/teacher/**     → ADMIN, UNIVERSITY_ADMIN, TEACHER
+/api/v1/university/**  → ADMIN, UNIVERSITY_ADMIN, TEACHER
+/api/v1/**             → Any authenticated user
+```
+
+**Authentication Header:**
 ```
 Authorization: Bearer <access_token>
 ```
 
 ---
 
-## 1. Authentication
+## 2. Authentication
 
 > **No authentication required** for these endpoints.
 
-### 1.1 Register
-
-Creates a new user account.
+### 2.1 Register
 
 ```
-POST /api/v1/register
+POST /api/v1/auth/register
 ```
 
 **Request Body:**
@@ -65,13 +63,13 @@ POST /api/v1/register
 }
 ```
 
-| Field      | Type   | Required | Description                                                               |
-|------------|--------|----------|---------------------------------------------------------------------------|
-| email      | string | ✅       | Must be unique, valid email                                               |
-| password   | string | ✅       | User password                                                             |
-| firstName  | string | ✅       | First name                                                                |
-| lastName   | string | ✅       | Last name                                                                 |
-| role       | string | ❌       | One of the [Role](#roles) enum values. Defaults to `ROLE_STUDENT` if null |
+| Field      | Type   | Required | Description                                                |
+|------------|--------|----------|------------------------------------------------------------|
+| email      | string | ✅       | Must be unique, valid email                                |
+| password   | string | ✅       | User password                                              |
+| firstName  | string | ✅       | First name                                                 |
+| lastName   | string | ✅       | Last name                                                  |
+| role       | string | ❌       | One of the [Role](#roles) enum values                      |
 
 **Response:** `200 OK`
 
@@ -84,19 +82,14 @@ POST /api/v1/register
     "email": "user@example.com",
     "firstName": "John",
     "lastName": "Doe",
-    "role": "ROLE_STUDENT",
-    "enabled": true,
-    "emailVerified": false
-  },
-  "userType": null
+    "role": "ROLE_STUDENT"
+  }
 }
 ```
 
 ---
 
-### 1.2 Login
-
-Authenticates a user and returns JWT tokens.
+### 2.2 Login
 
 ```
 POST /api/v1/auth/login
@@ -121,28 +114,11 @@ POST /api/v1/auth/login
 }
 ```
 
-> **⚠️ Important:** Store both tokens. The `access_token` expires in **24 hours** (configurable), the `refresh_token` expires in **7 days**.
-
-**Frontend Integration:**
-
-```javascript
-// Store tokens after login
-const response = await fetch('/api/v1/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email, password })
-});
-const { access_token, refresh_token } = await response.json();
-
-localStorage.setItem('access_token', access_token);
-localStorage.setItem('refresh_token', refresh_token);
-```
+> ⚠️ Store both tokens. `access_token` expires in **24 hours**, `refresh_token` in **7 days**.
 
 ---
 
-### 1.3 Refresh Token
-
-Exchanges a valid refresh token for new access + refresh tokens.
+### 2.3 Refresh Token
 
 ```
 POST /api/v1/auth/refresh
@@ -156,19 +132,27 @@ POST /api/v1/auth/refresh
 }
 ```
 
-> **Note:** Field name is `refresh_token` (snake_case), matching the login response.
+> **Note:** The field name is `refresh_token` (snake_case).
 
-**Response:** `200 OK`
+**Response:** `200 OK` — Returns new `access_token` and `refresh_token`.
 
-```json
-{
-  "access_token": "eyJhbGciOiJSUzI1NiJ9...(new)",
-  "refresh_token": "eyJhbGciOiJSUzI1NiJ9...(new)",
-  "token_type": "Bearer"
-}
+---
+
+### 2.4 Forgot Password
+
+```
+POST /api/v1/auth/forgot-password?email=user@example.com
 ```
 
-**Frontend Integration — Auto-refresh interceptor:**
+### 2.5 Reset Password
+
+```
+POST /api/v1/auth/reset-password?token=<reset_token>&password=NewPass!&confirmPassword=NewPass!
+```
+
+---
+
+### Frontend Integration — Auth Interceptor
 
 ```javascript
 async function fetchWithAuth(url, options = {}) {
@@ -182,8 +166,7 @@ async function fetchWithAuth(url, options = {}) {
   let response = await fetch(url, options);
 
   if (response.status === 403 || response.status === 401) {
-    // Try refreshing the token
-    const refreshResponse = await fetch('/api/v1/auth/refresh', {
+    const refreshRes = await fetch('/api/v1/auth/refresh', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -191,35 +174,46 @@ async function fetchWithAuth(url, options = {}) {
       })
     });
 
-    if (refreshResponse.ok) {
-      const tokens = await refreshResponse.json();
+    if (refreshRes.ok) {
+      const tokens = await refreshRes.json();
       localStorage.setItem('access_token', tokens.access_token);
       localStorage.setItem('refresh_token', tokens.refresh_token);
-
-      // Retry with new token
       options.headers['Authorization'] = `Bearer ${tokens.access_token}`;
       response = await fetch(url, options);
     } else {
-      // Refresh failed — redirect to login
       window.location.href = '/login';
     }
   }
-
   return response;
 }
 ```
 
 ---
 
-### 1.4 Admin Registration
+## 3. Admin Endpoints
 
-Creates a user with full profile (student/teacher) in one step. **Requires ADMIN role.**
+> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
+
+### 3.1 Users
+
+| Method | Endpoint                              | Description            | Status |
+|--------|---------------------------------------|------------------------|--------|
+| GET    | `/api/v1/admin/users`                 | List all users         | 200    |
+| GET    | `/api/v1/admin/university`            | Users by university    | 200    |
+| GET    | `/api/v1/admin/{id}`                  | Get user by ID         | 200    |
+| GET    | `/api/v1/admin/email/{email}`         | Get user by email      | 200    |
+| POST   | `/api/v1/admin/users`                 | Create user            | 201    |
+| DELETE | `/api/v1/admin/{id}`                  | Delete user            | 204    |
+
+**Query params for `/admin/university`:** `?universityId={id}`
+
+---
+
+### 3.2 Admin Registration
 
 ```
 POST /api/v1/admin/registerNewUser
 ```
-
-**Request Body:**
 
 ```json
 {
@@ -237,175 +231,20 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 1.5 Forgot Password
+### 3.3 Students (Admin)
 
-```
-POST /api/v1/forgot-password?email=user@example.com
-```
+| Method | Endpoint                                       | Description                    | Status |
+|--------|-------------------------------------------------|--------------------------------|--------|
+| GET    | `/api/v1/admin/students`                       | List all students              | 200    |
+| POST   | `/api/v1/admin/students`                       | Create student profile         | 201    |
+| PUT    | `/api/v1/admin/students/{id}`                  | Update student                 | 200    |
+| DELETE | `/api/v1/admin/students/{id}`                  | Delete student                 | 204    |
+| GET    | `/api/v1/admin/students/unassigned`            | Unassigned students            | 200    |
+| PUT    | `/api/v1/admin/students/assign/{id}`           | Assign student (TODO)          | 200    |
+| PUT    | `/api/v1/admin/students/{studentId}/group`     | Assign to group                | 200    |
+| PUT    | `/api/v1/admin/bulk-assign`                    | Bulk assign to group           | 200    |
 
-**Response:** `200 OK` — Sends a password reset email.
-
----
-
-### 1.6 Reset Password
-
-```
-POST /api/v1/reset-password?token=<reset_token>&password=NewPass123!&confirmPassword=NewPass123!
-```
-
----
-
-## 2. Universities
-
-> **Requires:** `ROLE_ADMIN`
-
-### Endpoints
-
-| Method | Endpoint                    | Description          | Status |
-|--------|-----------------------------|----------------------|--------|
-| GET    | `/api/v1/universities`      | List all             | 200    |
-| GET    | `/api/v1/universities/{id}` | Get by ID            | 200    |
-| POST   | `/api/v1/universities`      | Create new           | 201    |
-| PUT    | `/api/v1/universities/{id}` | Update               | 200    |
-| DELETE | `/api/v1/universities/{id}` | Delete               | 204    |
-
-### Create/Update University
-
-```json
-{
-  "name": "MIT",
-  "address": "77 Massachusetts Ave, Cambridge, MA",
-  "phone": "617-253-1000",
-  "email": "admissions@mit.edu"
-}
-```
-
----
-
-## 3. Users
-
-> **Requires:** `ROLE_ADMIN`
-
-| Method | Endpoint                       | Description            | Status |
-|--------|--------------------------------|------------------------|--------|
-| GET    | `/api/v1/users`                | List all users         | 200    |
-| GET    | `/api/v1/users/{id}`           | Get user by ID         | 200    |
-| GET    | `/api/v1/users/email/{email}`  | Get user by email      | 200    |
-| GET    | `/api/v1/users/university?universityId={id}` | Users by university | 200 |
-| POST   | `/api/v1/users`                | Create user            | 201    |
-| DELETE | `/api/v1/users/{id}`           | Delete user            | 204    |
-
-**Response format:**
-
-```json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "firstName": "John",
-  "lastName": "Doe",
-  "role": "ROLE_STUDENT",
-  "universityId": 1,
-  "universityName": "MIT"
-}
-```
-
----
-
-## 4. Faculties
-
-> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
-
-| Method | Endpoint                                         | Description               | Status |
-|--------|--------------------------------------------------|---------------------------|--------|
-| GET    | `/api/v1/faculties`                              | List all faculties        | 200    |
-| GET    | `/api/v1/faculties/{id}`                         | Get by ID                 | 200    |
-| GET    | `/api/v1/faculties/university?universityId={id}` | Faculties by university   | 200    |
-| POST   | `/api/v1/faculties`                              | Create faculty            | 201    |
-| PUT    | `/api/v1/faculties/{id}`                         | Update faculty            | 200    |
-| DELETE | `/api/v1/faculties/{id}`                         | Delete faculty            | 204    |
-
----
-
-## 5. Subjects
-
-> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
-
-| Method | Endpoint                                     | Description              | Status |
-|--------|----------------------------------------------|--------------------------|--------|
-| GET    | `/api/v1/subjects`                           | List all subjects        | 200    |
-| GET    | `/api/v1/subjects/{id}`                      | Get by ID                | 200    |
-| GET    | `/api/v1/subjects/university/{universityId}` | Subjects by university   | 200    |
-| POST   | `/api/v1/subjects`                           | Create subject           | 201    |
-| PUT    | `/api/v1/subjects/{id}`                      | Update subject           | 200    |
-| DELETE | `/api/v1/subjects/{id}`                      | Delete subject           | 204    |
-
-### Create/Update Subject
-
-```json
-{
-  "name": "Linear Algebra",
-  "description": "Introductory course on linear algebra",
-  "credits": 3
-}
-```
-
----
-
-## 6. Teachers
-
-> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
-
-| Method | Endpoint                                          | Description                  | Status |
-|--------|---------------------------------------------------|------------------------------|--------|
-| GET    | `/api/v1/teachers`                                | List all teachers            | 200    |
-| GET    | `/api/v1/teachers/{id}`                           | Get by ID                    | 200    |
-| GET    | `/api/v1/teachers/user/{userId}`                  | Get by user ID               | 200    |
-| GET    | `/api/v1/teachers/university?universityId={id}`   | Teachers by university       | 200    |
-| POST   | `/api/v1/teachers`                                | Create teacher profile       | 201    |
-| PUT    | `/api/v1/teachers/{id}`                           | Update teacher               | 200    |
-| DELETE | `/api/v1/teachers/{id}`                           | Delete teacher               | 204    |
-| PUT    | `/api/v1/teachers/{teacherId}/subjects`           | Assign subjects to teacher   | 200    |
-| GET    | `/api/v1/teachers/getWorkload?teacherId={id}&year={y}&month={m}` | Get teacher workload | 200 |
-
-### Create Teacher
-
-```json
-{
-  "userId": 5,
-  "employeeNumber": "EMP-001",
-  "subjectIds": [1, 2, 3]
-}
-```
-
-### Assign Subjects
-
-```
-PUT /api/v1/teachers/{teacherId}/subjects
-Body: [1, 2, 3]  // Array of subject IDs
-```
-
----
-
-## 7. Students
-
-> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
-
-| Method | Endpoint                                          | Description                     | Status |
-|--------|---------------------------------------------------|---------------------------------|--------|
-| GET    | `/api/v1/students`                                | List all students               | 200    |
-| GET    | `/api/v1/students/{id}`                           | Get by ID                       | 200    |
-| GET    | `/api/v1/students/user/{userId}`                  | Get by user ID                  | 200    |
-| GET    | `/api/v1/students/group/{groupId}`                | Students by group               | 200    |
-| GET    | `/api/v1/students/university?universityId={id}`   | Students by university          | 200    |
-| GET    | `/api/v1/students/unassigned?universityId={id}`   | Unassigned students             | 200    |
-| POST   | `/api/v1/students`                                | Create student profile          | 201    |
-| PUT    | `/api/v1/students/{id}`                           | Update student                  | 200    |
-| DELETE | `/api/v1/students/{id}`                           | Delete student                  | 204    |
-| PUT    | `/api/v1/students/{studentId}/group`              | Assign student to group         | 200    |
-| PUT    | `/api/v1/students/bulk-assign`                    | Bulk assign students to group   | 200    |
-
-### Create Student
-
+**Create Student:**
 ```json
 {
   "userId": 10,
@@ -416,179 +255,221 @@ Body: [1, 2, 3]  // Array of subject IDs
 }
 ```
 
-### Assign Student to Group
-
-```
-PUT /api/v1/students/{studentId}/group
-Body: 3  // studentGroupId as Long
-```
-
-### Bulk Assign
-
+**Bulk Assign:**
 ```json
 {
-  "studentIds": [1, 2, 3, 4],
+  "studentIds": [1, 2, 3],
   "classGroupId": 2
 }
 ```
 
----
-
-## 8. Student Groups
-
-> **Requires:** `ROLE_ADMIN` or `ROLE_UNIVERSITY_ADMIN`
-
-| Method | Endpoint                       | Description          | Status |
-|--------|--------------------------------|----------------------|--------|
-| GET    | `/api/v1/student-groups`       | List all groups      | 200    |
-| GET    | `/api/v1/student-groups/{id}`  | Get by ID            | 200    |
-| POST   | `/api/v1/student-groups`       | Create group         | 201    |
-| PUT    | `/api/v1/student-groups/{id}`  | Update group         | 200    |
-| DELETE | `/api/v1/student-groups/{id}`  | Delete group         | 204    |
+**Query params for `unassigned`:** `?universityId={id}`
 
 ---
 
-## 9. Courses & LMS
+### 3.4 Teachers (Admin)
 
-> **Requires:** Any authenticated role (`ADMIN`, `UNIVERSITY_ADMIN`, `TEACHER`, `STUDENT`)
+| Method | Endpoint                                         | Description             | Status |
+|--------|--------------------------------------------------|-------------------------|--------|
+| GET    | `/api/v1/admin/teachers/{id}`                    | Get teacher by ID       | 200    |
+| GET    | `/api/v1/admin/teachers/user/{userId}`           | Get by user ID          | 200    |
+| POST   | `/api/v1/admin/teachers`                         | Create teacher          | 201    |
+| PUT    | `/api/v1/admin/teachers/{id}`                    | Update teacher          | 200    |
+| DELETE | `/api/v1/admin/teachers/{id}`                    | Delete teacher          | 204    |
+| GET    | `/api/v1/admin/teachers/getWorkload`             | Teacher workload report | 200    |
 
-| Method | Endpoint                                              | Description              | Status |
-|--------|-------------------------------------------------------|--------------------------|--------|
-| GET    | `/api/v1/courses/catalog`                             | Browse course catalog    | 200    |
-| GET    | `/api/v1/courses/my`                                  | My created courses       | 200    |
-| GET    | `/api/v1/courses/{id}`                                | Get course with modules  | 200    |
-| POST   | `/api/v1/courses`                                     | Create course            | 200    |
-| PUT    | `/api/v1/courses/{id}`                                | Update course            | 200    |
-| DELETE | `/api/v1/courses/{id}`                                | Delete course            | 204    |
-| POST   | `/api/v1/courses/{courseId}/modules`                   | Add module to course     | 200    |
-| POST   | `/api/v1/courses/{courseId}/modules/{moduleId}/lessons`| Add lesson to module     | 200    |
-
-### Create Course
-
+**Create Teacher:**
 ```json
 {
-  "title": "Introduction to Programming",
-  "description": "Learn the basics of programming with Python",
-  "enrollmentPassword": "optional-password",
-  "isPublic": true
+  "userId": 5,
+  "employeeNumber": "EMP-001",
+  "subjectIds": [1, 2]
 }
 ```
 
-### Create Module
+**Workload query params:** `?teacherId={id}&year={y}&month={m}`
+
+---
+
+### 3.5 Subjects (Admin)
+
+| Method | Endpoint                            | Description        | Status |
+|--------|--------------------------------------|--------------------|--------|
+| GET    | `/api/v1/admin/subjects`            | List all subjects  | 200    |
+| GET    | `/api/v1/admin/subjects/{id}`       | Get by ID          | 200    |
+| POST   | `/api/v1/admin/subjects`            | Create subject     | 201    |
+| PUT    | `/api/v1/admin/subjects/{id}`       | Update subject     | 200    |
+| DELETE | `/api/v1/admin/subjects/{id}`       | Delete subject     | 204    |
 
 ```json
 {
-  "title": "Module 1: Variables & Types"
+  "name": "Linear Algebra",
+  "description": "Introductory course",
+  "credits": 3
 }
 ```
 
-### Create Lesson
+---
 
+### 3.6 Faculties (Admin)
+
+| Method | Endpoint                            | Description        | Status |
+|--------|--------------------------------------|--------------------|--------|
+| POST   | `/api/v1/admin/faculties`           | Create faculty     | 201    |
+| PUT    | `/api/v1/admin/faculties/{id}`      | Update faculty     | 200    |
+| DELETE | `/api/v1/admin/faculties/{id}`      | Delete faculty     | 204    |
+
+---
+
+### 3.7 Student Groups (Admin)
+
+| Method | Endpoint                              | Description          | Status |
+|--------|----------------------------------------|----------------------|--------|
+| POST   | `/api/v1/admin/student-groups`        | Create group         | 201    |
+| PUT    | `/api/v1/admin/student-groups/{id}`   | Update group         | 200    |
+| DELETE | `/api/v1/admin/student-groups/{id}`   | Delete group         | 204    |
+
+---
+
+### 3.8 Schedule (Admin)
+
+| Method | Endpoint                             | Description                | Status |
+|--------|---------------------------------------|----------------------------|--------|
+| POST   | `/api/v1/admin/schedule`             | Create schedule entry      | 200    |
+| POST   | `/api/v1/admin/schedule/generate`    | Auto-generate schedule     | 200    |
+| DELETE | `/api/v1/admin/schedule/{id}`        | Delete schedule entry      | 204    |
+
+**Create Schedule:**
 ```json
 {
-  "title": "Variables in Python",
-  "content": "A variable is a named storage location...",
-  "contentType": "TEXT",
-  "fileUrl": null
+  "studentGroupId": 1,
+  "classId": 3,
+  "dayOfWeek": "MONDAY",
+  "startTime": "09:00",
+  "endTime": "10:30",
+  "room": "Building A, Room 101",
+  "lessonNumber": 1
 }
 ```
 
-| contentType | Description       |
-|-------------|-------------------|
-| `TEXT`      | Rich text content |
-| `PDF`       | PDF document      |
-| `VIDEO`     | Video content     |
-
-### Course Detail Response
-
+**Auto-Generate:**
 ```json
 {
-  "course": {
-    "id": 1,
-    "title": "Introduction to Programming",
-    "description": "...",
-    "isPublic": true,
-    "hasPassword": false,
-    "instructorName": "Jane Smith",
-    "instructorId": 1,
-    "universityName": "MIT",
-    "universityId": 1
-  },
-  "modules": [
-    {
-      "id": 1,
-      "title": "Module 1: Variables",
-      "orderIndex": 0,
-      "lessons": [
-        {
-          "id": 1,
-          "title": "Variables in Python",
-          "content": "...",
-          "contentType": "TEXT",
-          "fileUrl": null,
-          "orderIndex": 0
-        }
-      ],
-      "tests": [
-        { "id": 1, "title": "Quiz 1" }
-      ]
-    }
+  "dayStartTime": "08:00",
+  "dayEndTime": "17:00",
+  "lessonDurationMinutes": 90,
+  "breakDurationMinutes": 15,
+  "classMappings": [
+    { "classId": 1, "studentGroupIds": [1, 2] }
   ]
 }
 ```
 
 ---
 
-## 10. Enrollments
+### 3.9 Announcements (Admin)
 
-> **Requires:** Any authenticated role
-
-| Method | Endpoint                              | Description                 | Status |
-|--------|---------------------------------------|-----------------------------|--------|
-| POST   | `/api/v1/enrollments`                 | Enroll in a course          | 200    |
-| GET    | `/api/v1/enrollments/my`              | My enrollments              | 200    |
-| GET    | `/api/v1/enrollments/course/{courseId}`| Course enrollments (admin)  | 200    |
-
-### Enroll in Course
+| Method | Endpoint                              | Description             | Status |
+|--------|----------------------------------------|-------------------------|--------|
+| POST   | `/api/v1/admin/announcements`         | Create announcement     | 200    |
+| DELETE | `/api/v1/admin/announcements/{id}`    | Delete announcement     | 204    |
 
 ```json
 {
-  "courseId": 1,
-  "password": "enrollment-password-if-required"
-}
-```
-
-### Enrollment Response
-
-```json
-{
-  "id": 1,
-  "studentId": 5,
-  "studentName": "John Doe",
-  "courseId": 1,
-  "courseTitle": "Introduction to Programming",
-  "enrolledAt": "2026-04-14T13:00:00"
+  "title": "Midterm Exam Schedule",
+  "content": "Midterm exams April 20-25...",
+  "targetRole": "ROLE_STUDENT",
+  "targetStudentGroupId": null,
+  "important": true,
+  "expiresAt": "2026-04-25T23:59:59"
 }
 ```
 
 ---
 
-## 11. Grades
+## 4. Teacher Endpoints
 
-> **Requires:** Any authenticated role
+> **Requires:** `ROLE_ADMIN`, `ROLE_UNIVERSITY_ADMIN`, or `ROLE_TEACHER`
 
-| Method | Endpoint                              | Description                          | Status |
-|--------|---------------------------------------|--------------------------------------|--------|
-| GET    | `/api/v1/grades`                      | My grades (or all for admins)        | 200    |
-| GET    | `/api/v1/grades/subject/{subjectId}`  | My grades by subject                 | 200    |
-| GET    | `/api/v1/grades/averages`             | My grade averages per subject        | 200    |
-| GET    | `/api/v1/grades/student/{studentId}`  | Specific student's grades (teachers) | 200    |
-| POST   | `/api/v1/grades`                      | Create/assign a grade (teachers)     | 200    |
-| DELETE | `/api/v1/grades/{id}`                 | Delete a grade                       | 204    |
+### 4.1 Courses (Teacher)
 
-> **Note:** Admin and University Admin users see all grades. Students see only their own.
+| Method | Endpoint                                                       | Description              | Status |
+|--------|----------------------------------------------------------------|--------------------------|--------|
+| POST   | `/api/v1/teacher/courses`                                      | Create course            | 200    |
+| GET    | `/api/v1/teacher/courses/my`                                   | My created courses       | 200    |
+| GET    | `/api/v1/teacher/courses/{id}`                                 | Get course with modules  | 200    |
+| PUT    | `/api/v1/teacher/courses/{id}`                                 | Update course            | 200    |
+| DELETE | `/api/v1/teacher/courses/{id}`                                 | Delete course            | 204    |
+| POST   | `/api/v1/teacher/courses/{courseId}/modules`                    | Add module               | 200    |
+| POST   | `/api/v1/teacher/courses/{courseId}/modules/{moduleId}/lessons` | Add lesson               | 200    |
 
-### Create Grade
+**Create Course:**
+```json
+{
+  "title": "Introduction to Programming",
+  "description": "Learn Python basics",
+  "enrollmentPassword": "optional-password",
+  "isPublic": true
+}
+```
+
+**Create Module:**
+```json
+{ "title": "Module 1: Variables" }
+```
+
+**Create Lesson:**
+```json
+{
+  "title": "Variables in Python",
+  "content": "A variable is a named storage...",
+  "contentType": "TEXT",
+  "fileUrl": null
+}
+```
+
+---
+
+### 4.2 Tests & Quizzes (Teacher)
+
+| Method | Endpoint                                      | Description           | Status |
+|--------|-----------------------------------------------|-----------------------|--------|
+| POST   | `/api/v1/teacher/tests`                       | Create test           | 200    |
+| POST   | `/api/v1/teacher/tests/{testId}/questions`    | Add question          | 200    |
+
+**Create Test:**
+```json
+{
+  "moduleId": 1,
+  "title": "Quiz 1: Variables",
+  "timeLimitMinutes": 30,
+  "randomizeQuestions": true,
+  "randomizeChoices": true,
+  "passingScore": 70.0
+}
+```
+
+**Add Question:**
+```json
+{
+  "text": "What is a variable?",
+  "questionType": "SINGLE_CHOICE",
+  "choices": [
+    { "text": "A named storage location", "correct": true },
+    { "text": "A function", "correct": false }
+  ]
+}
+```
+
+---
+
+### 4.3 Grades (Teacher)
+
+| Method | Endpoint                                       | Description                | Status |
+|--------|------------------------------------------------|----------------------------|--------|
+| GET    | `/api/v1/teacher/grades/student/{studentId}`   | Specific student's grades  | 200    |
+| POST   | `/api/v1/teacher/grades`                       | Create/assign grade        | 200    |
+| DELETE | `/api/v1/teacher/grades/{id}`                  | Delete grade               | 204    |
 
 ```json
 {
@@ -602,231 +483,213 @@ Body: 3  // studentGroupId as Long
 }
 ```
 
-### Grade Averages Response
-
-```json
-{
-  "Linear Algebra": 87.5,
-  "Physics": 92.0,
-  "Programming": 95.3
-}
-```
-
 ---
 
-## 12. Schedule
+### 4.4 Attendance (Teacher)
 
-> **Requires:** Any authenticated role
+| Method | Endpoint                                              | Description               | Status |
+|--------|-------------------------------------------------------|---------------------------|--------|
+| POST   | `/api/v1/teacher/attendance`                          | Mark attendance (batch)   | 200    |
+| GET    | `/api/v1/teacher/attendance/schedule/{scheduleId}`    | Get class attendance      | 200    |
 
-| Method | Endpoint                                    | Description                        | Status |
-|--------|---------------------------------------------|------------------------------------|--------|
-| GET    | `/api/v1/schedule/week`                     | My weekly schedule (role-based)    | 200    |
-| GET    | `/api/v1/schedule/class/{classGroupId}`     | Schedule for a specific class      | 200    |
-| GET    | `/api/v1/schedule/teacher/{teacherId}`      | Schedule for a specific teacher    | 200    |
-| POST   | `/api/v1/schedule`                          | Create a single schedule entry     | 200    |
-| POST   | `/api/v1/schedule/generate`                 | Auto-generate schedule             | 200    |
-| DELETE | `/api/v1/schedule/{id}`                     | Delete a schedule entry            | 204    |
-
-> **`GET /schedule/week` behavior by role:**
-> - **ROLE_STUDENT** → returns schedule for the student's class group
-> - **ROLE_TEACHER** → returns the teacher's schedule
-> - **ROLE_ADMIN / ROLE_UNIVERSITY_ADMIN** → returns all schedules
-
-### Create Schedule Entry
-
-```json
-{
-  "studentGroupId": 1,
-  "classId": 3,
-  "dayOfWeek": "MONDAY",
-  "startTime": "09:00",
-  "endTime": "10:30",
-  "room": "Building A, Room 101",
-  "lessonNumber": 1
-}
-```
-
-### Auto-Generate Schedule
-
-```json
-{
-  "dayStartTime": "08:00",
-  "dayEndTime": "17:00",
-  "lessonDurationMinutes": 90,
-  "breakDurationMinutes": 15,
-  "classMappings": [
-    {
-      "classId": 1,
-      "studentGroupIds": [1, 2]
-    },
-    {
-      "classId": 2,
-      "studentGroupIds": [3]
-    }
-  ]
-}
-```
-
----
-
-## 13. Attendance
-
-> **Requires:** Any authenticated role
-
-| Method | Endpoint                                                     | Description                        | Status |
-|--------|--------------------------------------------------------------|------------------------------------|--------|
-| GET    | `/api/v1/attendance`                                         | My attendance (role-based)         | 200    |
-| GET    | `/api/v1/attendance/stats`                                   | Attendance statistics              | 200    |
-| GET    | `/api/v1/attendance/range?startDate={}&endDate={}`           | Attendance by date range           | 200    |
-| GET    | `/api/v1/attendance/student/{studentId}`                     | Specific student's attendance      | 200    |
-| GET    | `/api/v1/attendance/schedule/{scheduleId}?date={}`           | Attendance for a class on date     | 200    |
-| GET    | `/api/v1/attendance/reports/attendance?startDate={}&endDate={}` | Attendance report              | 200    |
-| POST   | `/api/v1/attendance`                                         | Mark attendance (teachers)         | 200    |
-
-> **Date format:** `YYYY-MM-DD` (ISO 8601)
-
-### Mark Attendance (Batch)
-
+**Mark Attendance:**
 ```json
 {
   "scheduleId": 1,
   "date": "2026-04-14",
   "attendanceRecords": [
     { "studentId": 1, "status": "PRESENT" },
-    { "studentId": 2, "status": "ABSENT" },
-    { "studentId": 3, "status": "LATE" },
-    { "studentId": 4, "status": "EXCUSED" }
+    { "studentId": 2, "status": "ABSENT" }
   ]
 }
 ```
 
-### Attendance Stats Response
+**Query params for schedule attendance:** `?date=2026-04-14`
+
+---
+
+### 4.5 Enrollments (Teacher)
+
+| Method | Endpoint                                          | Description              | Status |
+|--------|---------------------------------------------------|--------------------------|--------|
+| GET    | `/api/v1/teacher/enrollments/course/{courseId}`    | Course enrollments       | 200    |
+
+---
+
+### 4.6 Progress (Teacher)
+
+| Method | Endpoint                                               | Description                | Status |
+|--------|--------------------------------------------------------|----------------------------|--------|
+| GET    | `/api/v1/teacher/progress/courses/{courseId}/students`  | All students' progress     | 200    |
+
+---
+
+### 4.7 Teacher Subjects
+
+| Method | Endpoint                                           | Description              | Status |
+|--------|-----------------------------------------------------|--------------------------|--------|
+| PUT    | `/api/v1/teacher/teachers/{teacherId}/subjects`    | Update teacher's subjects | 200   |
+
+**Body:** `[1, 2, 3]` (array of subject IDs)
+
+---
+
+## 5. University-Scoped Endpoints
+
+> **Requires:** `ROLE_ADMIN`, `ROLE_UNIVERSITY_ADMIN`, or `ROLE_TEACHER`
+
+| Method | Endpoint                                          | Description               | Status |
+|--------|---------------------------------------------------|---------------------------|--------|
+| GET    | `/api/v1/university/students`                     | Students by university    | 200    |
+| GET    | `/api/v1/university/{universityId}/teachers`      | Teachers by university    | 200    |
+| GET    | `/api/v1/university/{universityId}/subjects`      | Subjects by university    | 200    |
+
+**Query params for `students`:** `?universityId={id}`
+
+---
+
+## 6. Public Read Endpoints
+
+> **Requires:** Any authenticated user (all roles)
+
+### 6.1 Universities
+
+| Method | Endpoint                           | Description        | Status |
+|--------|-------------------------------------|--------------------|--------|
+| GET    | `/api/v1/universities`             | List all           | 200    |
+| GET    | `/api/v1/universities/{id}`        | Get by ID          | 200    |
+| POST   | `/api/v1/universities`             | Create             | 201    |
+| PUT    | `/api/v1/universities/{id}`        | Update             | 200    |
+| DELETE | `/api/v1/universities/{id}`        | Delete             | 204    |
+
+---
+
+### 6.2 Faculties (Read)
+
+| Method | Endpoint                                          | Description              | Status |
+|--------|---------------------------------------------------|--------------------------|--------|
+| GET    | `/api/v1/faculties`                               | List all faculties       | 200    |
+| GET    | `/api/v1/faculties/university?universityId={id}`  | Faculties by university  | 200    |
+| GET    | `/api/v1/faculties/{id}`                          | Get by ID                | 200    |
+
+---
+
+### 6.3 Teachers/Students (Read)
+
+| Method | Endpoint                              | Description          | Status |
+|--------|----------------------------------------|----------------------|--------|
+| GET    | `/api/v1/teachers`                    | List all teachers    | 200    |
+| GET    | `/api/v1/students/{id}`              | Get student by ID    | 200    |
+| GET    | `/api/v1/students/user/{userId}`     | Get by user ID       | 200    |
+| GET    | `/api/v1/students/group/{groupId}`   | Students by group    | 200    |
+| GET    | `/api/v1/student-groups`             | List all groups      | 200    |
+| GET    | `/api/v1/student-groups/{id}`        | Get group by ID      | 200    |
+
+---
+
+### 6.4 Courses (Read)
+
+| Method | Endpoint                     | Description           | Status |
+|--------|-------------------------------|-----------------------|--------|
+| GET    | `/api/v1/courses/catalog`    | Browse course catalog | 200    |
+
+---
+
+## 7. Student/General Endpoints
+
+> **Requires:** Any authenticated user
+
+### 7.1 Enrollments
+
+| Method | Endpoint                     | Description           | Status |
+|--------|-------------------------------|-----------------------|--------|
+| POST   | `/api/v1/enrollments`        | Enroll in a course    | 200    |
+| GET    | `/api/v1/enrollments/my`     | My enrollments        | 200    |
 
 ```json
 {
-  "PRESENT": 45,
-  "ABSENT": 3,
-  "LATE": 5,
-  "EXCUSED": 2
+  "courseId": 1,
+  "password": "enrollment-password-if-required"
 }
 ```
 
 ---
 
-## 14. Announcements
+### 7.2 Grades (Read)
 
-> **Requires:** Any authenticated role
-
-| Method | Endpoint                         | Description                        | Status |
-|--------|----------------------------------|------------------------------------|--------|
-| GET    | `/api/v1/announcements`          | My announcements (role-based)      | 200    |
-| GET    | `/api/v1/announcements/all`      | All announcements                  | 200    |
-| POST   | `/api/v1/announcements`          | Create announcement (teachers+)   | 200    |
-| DELETE | `/api/v1/announcements/{id}`     | Delete announcement                | 204    |
-
-### Create Announcement
-
-```json
-{
-  "title": "Midterm Exam Schedule",
-  "content": "Midterm exams will be held from April 20-25...",
-  "targetRole": "ROLE_STUDENT",
-  "targetStudentGroupId": null,
-  "important": true,
-  "expiresAt": "2026-04-25T23:59:59"
-}
-```
-
-| Field                | Type     | Description                                       |
-|----------------------|----------|---------------------------------------------------|
-| targetRole           | string?  | Filter by role. `null` = all roles                |
-| targetStudentGroupId | Long?    | Filter by student group. `null` = all groups      |
-| important            | boolean? | Mark as important                                 |
-| expiresAt            | string?  | ISO 8601 datetime. `null` = never expires         |
+| Method | Endpoint                              | Description                        | Status |
+|--------|---------------------------------------|------------------------------------|--------|
+| GET    | `/api/v1/grades`                      | My grades (all for admins)         | 200    |
+| GET    | `/api/v1/grades/subject/{subjectId}`  | My grades by subject               | 200    |
+| GET    | `/api/v1/grades/averages`             | My grade averages per subject      | 200    |
 
 ---
 
-## 15. Messages
+### 7.3 Schedule (Read)
 
-> **Requires:** Any authenticated role
+| Method | Endpoint                                 | Description                      | Status |
+|--------|------------------------------------------|----------------------------------|--------|
+| GET    | `/api/v1/schedule/week`                  | My weekly schedule (role-based)  | 200    |
+| GET    | `/api/v1/schedule/class/{classGroupId}`  | Schedule for a class             | 200    |
+| GET    | `/api/v1/schedule/teacher/{teacherId}`   | Schedule for a teacher           | 200    |
 
-| Method | Endpoint                                        | Description                       | Status |
-|--------|------------------------------------------------|-----------------------------------|--------|
-| POST   | `/api/v1/messages`                              | Send a message                    | 201    |
-| GET    | `/api/v1/messages`                              | Get all my messages               | 200    |
-| GET    | `/api/v1/messages/conversations`                | List conversation summaries       | 200    |
-| GET    | `/api/v1/messages/conversations/{otherUserId}`  | Get conversation with a user      | 200    |
+> **`/schedule/week` behavior:** Students → their class schedule. Teachers → their schedule. Admins → all.
 
-> **WebSocket chat** is also available at `ws://localhost:8080/ws-chat`
+---
 
-### Send Message
+### 7.4 Attendance (Read)
+
+| Method | Endpoint                                                        | Description              | Status |
+|--------|------------------------------------------------------------------|--------------------------|--------|
+| GET    | `/api/v1/attendance`                                            | My attendance            | 200    |
+| GET    | `/api/v1/attendance/stats`                                      | Attendance statistics    | 200    |
+| GET    | `/api/v1/attendance/range?startDate={}&endDate={}`              | By date range            | 200    |
+| GET    | `/api/v1/attendance/student/{studentId}`                        | Student attendance       | 200    |
+| GET    | `/api/v1/attendance/reports/attendance?startDate={}&endDate={}` | Attendance report        | 200    |
+
+> **Date format:** `YYYY-MM-DD` (ISO 8601)
+
+---
+
+### 7.5 Announcements (Read)
+
+| Method | Endpoint                          | Description                  | Status |
+|--------|-----------------------------------|------------------------------|--------|
+| GET    | `/api/v1/announcements`          | My announcements (role-based)| 200    |
+| GET    | `/api/v1/announcements/all`      | All announcements            | 200    |
+
+---
+
+### 7.6 Messages
+
+| Method | Endpoint                                       | Description               | Status |
+|--------|------------------------------------------------|---------------------------|--------|
+| POST   | `/api/v1/messages`                             | Send message              | 201    |
+| GET    | `/api/v1/messages`                             | All my messages           | 200    |
+| GET    | `/api/v1/messages/conversations`               | Conversation summaries    | 200    |
+| GET    | `/api/v1/messages/conversations/{otherUserId}` | Conversation with user    | 200    |
 
 ```json
 {
   "recipientId": 5,
-  "content": "Hello! When is the next assignment due?"
+  "content": "Hello! When is the assignment due?"
 }
 ```
 
-### Conversation Summary Response
-
-```json
-[
-  {
-    "otherUserId": 5,
-    "otherUserName": "Jane Smith",
-    "lastMessage": "The assignment is due Friday",
-    "lastMessageAt": "2026-04-14T12:30:00",
-    "unreadCount": 2
-  }
-]
-```
+> **WebSocket:** `ws://localhost:8080/ws-chat`
 
 ---
 
-## 16. Tests & Quizzes
+### 7.7 Tests (Student)
 
-> **Requires:** Any authenticated role
+| Method | Endpoint                                       | Description                | Status |
+|--------|-------------------------------------------------|----------------------------|--------|
+| GET    | `/api/v1/tests/{testId}`                       | Get test details           | 200    |
+| GET    | `/api/v1/tests/{testId}/questions`             | Get questions              | 200    |
+| POST   | `/api/v1/tests/{testId}/attempts`              | Start an attempt           | 200    |
+| POST   | `/api/v1/tests/attempts/{attemptId}/submit`    | Submit answers             | 200    |
 
-| Method | Endpoint                                        | Description                    | Status |
-|--------|-------------------------------------------------|--------------------------------|--------|
-| POST   | `/api/v1/tests`                                 | Create a test (teachers)       | 200    |
-| GET    | `/api/v1/tests/{testId}`                        | Get test details               | 200    |
-| GET    | `/api/v1/tests/{testId}/questions`              | Get questions (student view)   | 200    |
-| POST   | `/api/v1/tests/{testId}/questions`              | Add question to test           | 200    |
-| POST   | `/api/v1/tests/{testId}/attempts`               | Start a test attempt           | 200    |
-| POST   | `/api/v1/tests/attempts/{attemptId}/submit`     | Submit test answers            | 200    |
-
-### Create Test
-
-```json
-{
-  "moduleId": 1,
-  "title": "Quiz 1: Variables",
-  "timeLimitMinutes": 30,
-  "randomizeQuestions": true,
-  "randomizeChoices": true,
-  "passingScore": 70.0
-}
-```
-
-### Add Question
-
-```json
-{
-  "text": "What is a variable in Python?",
-  "questionType": "SINGLE_CHOICE",
-  "choices": [
-    { "text": "A named storage location", "correct": true },
-    { "text": "A function", "correct": false },
-    { "text": "A loop construct", "correct": false },
-    { "text": "A comment", "correct": false }
-  ]
-}
-```
-
-### Submit Answers
-
+**Submit Answers:**
 ```json
 {
   "answers": [
@@ -836,56 +699,29 @@ Body: 3  // studentGroupId as Long
 }
 ```
 
-### Attempt Response
+---
 
-```json
-{
-  "id": 1,
-  "startedAt": "2026-04-14T13:00:00",
-  "submittedAt": "2026-04-14T13:25:00",
-  "score": 85.0,
-  "maxScore": 100.0
-}
-```
+### 7.8 Progress
+
+| Method | Endpoint                                        | Description             | Status |
+|--------|-------------------------------------------------|-------------------------|--------|
+| POST   | `/api/v1/progress/lessons/{lessonId}/complete`  | Mark lesson complete    | 200    |
+| GET    | `/api/v1/progress/courses/{courseId}`            | My course progress      | 200    |
 
 ---
 
-## 17. Progress Tracking
-
-> **Requires:** Any authenticated role
-
-| Method | Endpoint                                         | Description                    | Status |
-|--------|--------------------------------------------------|--------------------------------|--------|
-| POST   | `/api/v1/progress/lessons/{lessonId}/complete`   | Mark a lesson as completed     | 200    |
-| GET    | `/api/v1/progress/courses/{courseId}`             | My progress in a course        | 200    |
-| GET    | `/api/v1/progress/courses/{courseId}/students`    | All students' progress (admin) | 200    |
-
-### Course Progress Response
-
-```json
-{
-  "courseId": 1,
-  "courseTitle": "Introduction to Programming",
-  "totalLessons": 15,
-  "completedLessons": 8,
-  "progressPercent": 53.3
-}
-```
-
----
-
-## 18. Enums Reference
+## 8. Enums Reference
 
 ### Roles
 
-| Value                  | Description                  |
-|------------------------|------------------------------|
-| `ROLE_ADMIN`           | Platform super admin         |
-| `ROLE_UNIVERSITY_ADMIN`| University administrator     |
-| `ROLE_TEACHER`         | Teacher / Instructor         |
-| `ROLE_STUDENT`         | Student                      |
-| `ROLE_ACCOUNTANT`      | Accountant                   |
-| `ROLE_GUEST`           | Guest / Limited access       |
+| Value                  | Description              |
+|------------------------|--------------------------|
+| `ROLE_ADMIN`           | Platform super admin     |
+| `ROLE_UNIVERSITY_ADMIN`| University administrator |
+| `ROLE_TEACHER`         | Teacher / Instructor     |
+| `ROLE_STUDENT`         | Student                  |
+| `ROLE_ACCOUNTANT`      | Accountant               |
+| `ROLE_GUEST`           | Guest / Limited access   |
 
 ### Content Type
 
@@ -906,87 +742,54 @@ Body: 3  // studentGroupId as Long
 
 ### Question Type
 
-| Value             | Description                    |
-|-------------------|--------------------------------|
-| `SINGLE_CHOICE`   | Only one correct answer       |
-| `MULTIPLE_CHOICE`  | Multiple correct answers     |
+| Value             | Description              |
+|-------------------|--------------------------|
+| `SINGLE_CHOICE`   | One correct answer      |
+| `MULTIPLE_CHOICE`  | Multiple correct answers|
 
 ### Day of Week
 
-Standard Java `DayOfWeek`: `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
+`MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`, `SATURDAY`, `SUNDAY`
 
 ---
 
-## 19. Role-Based Access Matrix
+## 9. Role-Based Access Matrix
 
-| API Category     | ADMIN | UNIVERSITY_ADMIN | TEACHER | STUDENT |
-|------------------|:-----:|:-----------------:|:-------:|:-------:|
-| Universities     | ✅    | ❌                | ❌      | ❌      |
-| Users            | ✅    | ❌                | ❌      | ❌      |
-| Admin Register   | ✅    | ❌                | ❌      | ❌      |
-| Faculties        | ✅    | ✅                | ❌      | ❌      |
-| Subjects         | ✅    | ✅                | ❌      | ❌      |
-| Teachers         | ✅    | ✅                | ❌      | ❌      |
-| Students         | ✅    | ✅                | ❌      | ❌      |
-| Student Groups   | ✅    | ✅                | ❌      | ❌      |
-| Courses          | ✅    | ✅                | ✅      | ✅      |
-| Enrollments      | ✅    | ✅                | ✅      | ✅      |
-| Grades           | ✅    | ✅                | ✅      | ✅      |
-| Schedule         | ✅    | ✅                | ✅      | ✅      |
-| Attendance       | ✅    | ✅                | ✅      | ✅      |
-| Announcements    | ✅    | ✅                | ✅      | ✅      |
-| Messages         | ✅    | ✅                | ✅      | ✅      |
-| Tests            | ✅    | ✅                | ✅      | ✅      |
-| Progress         | ✅    | ✅                | ✅      | ✅      |
+| URL Prefix           | ADMIN | UNI_ADMIN | TEACHER | STUDENT |
+|----------------------|:-----:|:---------:|:-------:|:-------:|
+| `/auth/**`           | 🌐    | 🌐        | 🌐      | 🌐      |
+| `/admin/**`          | ✅    | ✅        | ❌      | ❌      |
+| `/teacher/**`        | ✅    | ✅        | ✅      | ❌      |
+| `/university/**`     | ✅    | ✅        | ✅      | ❌      |
+| Everything else      | ✅    | ✅        | ✅      | ✅      |
+
+🌐 = Public (no auth required)
 
 ---
 
-## 20. Error Handling
+## 10. Error Handling
 
-### HTTP Status Codes
+| Code | Meaning                                  |
+|------|------------------------------------------|
+| 200  | Success                                  |
+| 201  | Created                                  |
+| 204  | No Content (successful delete)           |
+| 400  | Bad Request (validation error)           |
+| 403  | Forbidden (no token or insufficient role)|
+| 404  | Not Found                                |
+| 500  | Internal Server Error                    |
 
-| Code | Meaning                                           |
-|------|---------------------------------------------------|
-| 200  | Success                                           |
-| 201  | Created                                           |
-| 204  | No Content (successful delete)                    |
-| 400  | Bad Request (validation error)                    |
-| 401  | Unauthorized (missing/invalid token)              |
-| 403  | Forbidden (insufficient role or expired token)    |
-| 404  | Not Found                                         |
-| 500  | Internal Server Error                             |
-
-### Common Error Patterns
-
-**Authentication failed:**
-```
-HTTP 403 (empty body)
-```
-→ Token is missing, expired, or user doesn't have the required role.
-
-**Resource not found:**
-```
-HTTP 500 with ResourceNotFoundException
-```
-→ The requested entity (ID) doesn't exist in the database.
-
-### Frontend Error Handling Pattern
+### Frontend Error Handler
 
 ```javascript
 async function apiCall(url, options) {
   try {
     const response = await fetchWithAuth(url, options);
-
-    if (response.status === 204) return null; // Delete success
-
+    if (response.status === 204) return null;
     if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error('Access denied. Check your permissions.');
-      }
-      const error = await response.text();
-      throw new Error(error || `HTTP ${response.status}`);
+      if (response.status === 403) throw new Error('Access denied');
+      throw new Error(`HTTP ${response.status}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error(`API Error [${url}]:`, error.message);
@@ -997,36 +800,30 @@ async function apiCall(url, options) {
 
 ---
 
-## Complete Authentication Flow Diagram
+## Authentication Flow
 
 ```
-┌─────────┐     POST /register      ┌──────────┐
-│ Frontend │ ──────────────────────→ │  Backend │
-│          │ ←────────────────────── │          │
-│          │     { success: true }   │          │
-│          │                         │          │
-│          │    POST /auth/login     │          │
+┌─────────┐                          ┌──────────┐
+│ Frontend │  POST /auth/register    │  Backend │
 │          │ ──────────────────────→ │          │
-│          │ ←────────────────────── │          │
-│          │  { access_token,        │          │
-│          │    refresh_token }      │          │
+│          │ ←── { success: true }   │          │
 │          │                         │          │
-│          │   GET /api/v1/users     │          │
-│          │   Authorization:        │          │
-│          │   Bearer <access_token> │          │
+│          │  POST /auth/login       │          │
 │          │ ──────────────────────→ │          │
-│          │ ←────────────────────── │          │
-│          │     [user data]         │          │
+│          │ ←── { access_token,     │          │
+│          │       refresh_token }   │          │
+│          │                         │          │
+│          │  GET /api/v1/grades     │          │
+│          │  Authorization: Bearer  │          │
+│          │ ──────────────────────→ │          │
+│          │ ←── [grade data]        │          │
 │          │                         │          │
 │          │  ── Token Expired ──    │          │
-│          │   403 Forbidden         │          │
-│          │ ←────────────────────── │          │
+│          │ ←── 403 Forbidden       │          │
 │          │                         │          │
 │          │  POST /auth/refresh     │          │
 │          │  { refresh_token }      │          │
 │          │ ──────────────────────→ │          │
-│          │ ←────────────────────── │          │
-│          │  { new access_token,    │          │
-│          │    new refresh_token }  │          │
+│          │ ←── { new tokens }      │          │
 └─────────┘                         └──────────┘
 ```
