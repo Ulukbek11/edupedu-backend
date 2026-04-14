@@ -1,0 +1,2921 @@
+{
+  "info": {
+    "_postman_id": "22e3e478-88b9-42a0-a7c0-7ec8b9b7f6b4",
+    "name": "OpenAPI definition",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "university-controller",
+      "item": [
+        {
+          "name": "getUniversityById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/universities/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "universities",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateUniversity",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/universities/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "universities",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"creditsPerSemester\": 0,\n  \"universityAdmins\": [\n    {\n      \"id\": 0,\n      \"user\": {\n        \"id\": 0,\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"password\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"role\": \"ROLE_ADMIN\",\n        \"university\": {},\n        \"student\": {},\n        \"teacher\": {\n          \"id\": 0,\n          \"user\": {},\n          \"courses\": [\n            {}\n          ],\n          \"subjects\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"code\": \"string\",\n                    \"monthlyFee\": 0,\n                    \"university\": {}\n                  },\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": [\n                    {}\n                  ],\n                  \"classStatus\": {},\n                  \"credits\": 0\n                }\n              ],\n              \"teachers\": {}\n            }\n          ],\n          \"curator\": {\n            \"id\": 0,\n            \"teacher\": {},\n            \"studentGroup\": {}\n          },\n          \"classes\": {},\n          \"employeeNumber\": \"string\"\n        },\n        \"universityAdmin\": {},\n        \"refreshToken\": {\n          \"id\": 0,\n          \"tokenId\": \"string\",\n          \"user\": {},\n          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n          \"revoked\": true,\n          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n          \"replacedByTokenId\": \"string\"\n        },\n        \"resetToken\": \"string\",\n        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n        \"emailVerified\": true,\n        \"enabled\": true,\n        \"locked\": true,\n        \"expired\": true,\n        \"createdAt\": \"2023-10-27T10:00:00Z\",\n        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n        \"username\": \"string\",\n        \"accountNonExpired\": true,\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"authorities\": {},\n        \"fullName\": \"string\"\n      },\n      \"university\": {}\n    }\n  ],\n  \"createdAt\": \"2023-10-27T10:00:00Z\",\n  \"faculties\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"monthlyFee\": 0,\n      \"university\": {}\n    }\n  ],\n  \"studentGroups\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"year\": 0,\n      \"faculty\": {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"monthlyFee\": 0,\n        \"university\": {}\n      },\n      \"curator\": {\n        \"id\": 0,\n        \"teacher\": {},\n        \"studentGroup\": {}\n      },\n      \"schedules\": [\n        {}\n      ],\n      \"students\": [\n        {}\n      ],\n      \"university\": null\n    }\n  ],\n  \"users\": [\n    {\n      \"id\": 0,\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"password\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"role\": \"ROLE_ADMIN\",\n      \"university\": {},\n      \"student\": {},\n      \"teacher\": {\n        \"id\": 0,\n        \"user\": {},\n        \"courses\": [\n          {}\n        ],\n        \"subjects\": [\n          {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"credits\": 0,\n            \"classes\": [\n              {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"faculty\": {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"code\": \"string\",\n                  \"monthlyFee\": 0,\n                  \"university\": {}\n                },\n                \"subject\": {},\n                \"takenClasses\": [\n                  {}\n                ],\n                \"teacher\": {},\n                \"university\": null,\n                \"schedules\": [\n                  {}\n                ],\n                \"classStatus\": \"PASSED\",\n                \"credits\": 0\n              }\n            ],\n            \"teachers\": {}\n          }\n        ],\n        \"curator\": {\n          \"id\": 0,\n          \"teacher\": {},\n          \"studentGroup\": {}\n        },\n        \"classes\": [\n          {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"faculty\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"code\": \"string\",\n              \"monthlyFee\": 0,\n              \"university\": {}\n            },\n            \"subject\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {}\n              ],\n              \"teachers\": [\n                {}\n              ]\n            },\n            \"takenClasses\": [\n              {}\n            ],\n            \"teacher\": {},\n            \"university\": null,\n            \"schedules\": [\n              {}\n            ],\n            \"classStatus\": {},\n            \"credits\": 0\n          }\n        ],\n        \"employeeNumber\": \"string\"\n      },\n      \"universityAdmin\": {\n        \"id\": 0,\n        \"user\": {},\n        \"university\": {}\n      },\n      \"refreshToken\": {\n        \"id\": 0,\n        \"tokenId\": \"string\",\n        \"user\": {},\n        \"expiresAt\": \"2023-10-27T10:00:00Z\",\n        \"revoked\": true,\n        \"revokedAt\": \"2023-10-27T10:00:00Z\",\n        \"replacedByTokenId\": \"string\"\n      },\n      \"resetToken\": \"string\",\n      \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n      \"emailVerified\": true,\n      \"enabled\": true,\n      \"locked\": true,\n      \"expired\": true,\n      \"createdAt\": \"2023-10-27T10:00:00Z\",\n      \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n      \"username\": \"string\",\n      \"accountNonExpired\": true,\n      \"accountNonLocked\": true,\n      \"credentialsNonExpired\": true,\n      \"authorities\": [\n        {\n          \"authority\": \"string\"\n        }\n      ],\n      \"fullName\": \"string\"\n    }\n  ],\n  \"classes\": [\n    {}\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteUniversity",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/universities/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "universities",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllUniversities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/universities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "universities"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createUniversity",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/universities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "universities"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"creditsPerSemester\": 0,\n  \"universityAdmins\": [\n    {\n      \"id\": 0,\n      \"user\": {\n        \"id\": 0,\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"password\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"role\": \"ROLE_ADMIN\",\n        \"university\": {},\n        \"student\": {},\n        \"teacher\": {\n          \"id\": 0,\n          \"user\": {},\n          \"courses\": [\n            {}\n          ],\n          \"subjects\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"code\": \"string\",\n                    \"monthlyFee\": 0,\n                    \"university\": {}\n                  },\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": {},\n                  \"classStatus\": {},\n                  \"credits\": 0\n                }\n              ],\n              \"teachers\": {}\n            }\n          ],\n          \"curator\": {\n            \"id\": 0,\n            \"teacher\": {},\n            \"studentGroup\": {}\n          },\n          \"classes\": {},\n          \"employeeNumber\": \"string\"\n        },\n        \"universityAdmin\": {},\n        \"refreshToken\": {\n          \"id\": 0,\n          \"tokenId\": \"string\",\n          \"user\": {},\n          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n          \"revoked\": true,\n          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n          \"replacedByTokenId\": \"string\"\n        },\n        \"resetToken\": \"string\",\n        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n        \"emailVerified\": true,\n        \"enabled\": true,\n        \"locked\": true,\n        \"expired\": true,\n        \"createdAt\": \"2023-10-27T10:00:00Z\",\n        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n        \"username\": \"string\",\n        \"accountNonExpired\": true,\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"authorities\": {},\n        \"fullName\": \"string\"\n      },\n      \"university\": {}\n    }\n  ],\n  \"createdAt\": \"2023-10-27T10:00:00Z\",\n  \"faculties\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"monthlyFee\": 0,\n      \"university\": {}\n    }\n  ],\n  \"studentGroups\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"year\": 0,\n      \"faculty\": {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"monthlyFee\": 0,\n        \"university\": {}\n      },\n      \"curator\": {\n        \"id\": 0,\n        \"teacher\": {},\n        \"studentGroup\": {}\n      },\n      \"schedules\": [\n        {}\n      ],\n      \"students\": [\n        {}\n      ],\n      \"university\": null\n    }\n  ],\n  \"users\": [\n    {\n      \"id\": 0,\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"password\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"role\": \"ROLE_ADMIN\",\n      \"university\": {},\n      \"student\": {},\n      \"teacher\": {\n        \"id\": 0,\n        \"user\": {},\n        \"courses\": [\n          {}\n        ],\n        \"subjects\": [\n          {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"description\": \"string\",\n            \"credits\": 0,\n            \"classes\": {},\n            \"teachers\": {}\n          }\n        ],\n        \"curator\": {\n          \"id\": 0,\n          \"teacher\": {},\n          \"studentGroup\": {}\n        },\n        \"classes\": [\n          {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"faculty\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"code\": \"string\",\n              \"monthlyFee\": 0,\n              \"university\": {}\n            },\n            \"subject\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {}\n              ],\n              \"teachers\": [\n                {}\n              ]\n            },\n            \"takenClasses\": {},\n            \"teacher\": {},\n            \"university\": null,\n            \"schedules\": [\n              {}\n            ],\n            \"classStatus\": {},\n            \"credits\": 0\n          }\n        ],\n        \"employeeNumber\": \"string\"\n      },\n      \"universityAdmin\": {\n        \"id\": 0,\n        \"user\": {},\n        \"university\": {}\n      },\n      \"refreshToken\": {\n        \"id\": 0,\n        \"tokenId\": \"string\",\n        \"user\": {},\n        \"expiresAt\": \"2023-10-27T10:00:00Z\",\n        \"revoked\": true,\n        \"revokedAt\": \"2023-10-27T10:00:00Z\",\n        \"replacedByTokenId\": \"string\"\n      },\n      \"resetToken\": \"string\",\n      \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n      \"emailVerified\": true,\n      \"enabled\": true,\n      \"locked\": true,\n      \"expired\": true,\n      \"createdAt\": \"2023-10-27T10:00:00Z\",\n      \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n      \"username\": \"string\",\n      \"accountNonExpired\": true,\n      \"accountNonLocked\": true,\n      \"credentialsNonExpired\": true,\n      \"authorities\": [\n        {}\n      ],\n      \"fullName\": \"string\"\n    }\n  ],\n  \"classes\": [\n    {}\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "teacher-controller",
+      "item": [
+        {
+          "name": "updateTeacherSubjects",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/:teacherId/subjects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "{teacherId}",
+                "subjects"
+              ],
+              "variable": [
+                {
+                  "key": "teacherId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  0\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTeacherById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateTeacher",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeNumber\": \"string\",\n  \"subjectIds\": [\n    0\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteTeacher",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllTeachers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createTeacher",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 0,\n  \"employeeNumber\": \"string\",\n  \"subjectIds\": [\n    0\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTeacherByUserId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "user",
+                "{userId}"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllTeachersFromUniversity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/university",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "university"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTeacherWorkload",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/teachers/getWorkload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "teachers",
+                "getWorkload"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "teacherId",
+                  "value": ""
+                },
+                {
+                  "key": "year",
+                  "value": ""
+                },
+                {
+                  "key": "month",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "subject-controller",
+      "item": [
+        {
+          "name": "getSubjectById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateSubject",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"credits\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteSubject",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllSubjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createSubject",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"credits\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getSubjectsByUniversityId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/subjects/university/:universityId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "subjects",
+                "university",
+                "{universityId}"
+              ],
+              "variable": [
+                {
+                  "key": "universityId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "student-controller",
+      "item": [
+        {
+          "name": "updateStudentClass",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/:studentId/group",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "{studentId}",
+                "group"
+              ],
+              "variable": [
+                {
+                  "key": "studentId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "0",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateStudent",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentNumber\": \"string\",\n  \"accountNumber\": \"string\",\n  \"parentPhone\": \"string\",\n  \"studentGroupId\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteStudent",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bulkAssignStudentsToClass",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/bulk-assign",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "bulk-assign"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentIds\": [\n    0\n  ],\n  \"classGroupId\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "putMethodName",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/assign/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "assign",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "\"string\"",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllStudents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createStudent",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 0,\n  \"studentNumber\": \"string\",\n  \"accountNumber\": \"string\",\n  \"parentPhone\": \"string\",\n  \"studentGroupId\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentByUserId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/user/:userId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "user",
+                "{userId}"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllStudentsFromUniversity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/university",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "university"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getUnassignedStudents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/unassigned",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "unassigned"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentsByGroupId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/students/group/:groupId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "group",
+                "{groupId}"
+              ],
+              "variable": [
+                {
+                  "key": "groupId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "student-group-controller",
+      "item": [
+        {
+          "name": "getStudentGroupById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student-groups/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "student-groups",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateStudentGroup",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student-groups/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "student-groups",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"year\": 0,\n  \"faculty\": {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"code\": \"string\",\n    \"monthlyFee\": 0,\n    \"university\": {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"creditsPerSemester\": 0,\n      \"universityAdmins\": [\n        {\n          \"id\": 0,\n          \"user\": {\n            \"id\": 0,\n            \"email\": \"string\",\n            \"phone\": \"string\",\n            \"password\": \"string\",\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"role\": \"ROLE_ADMIN\",\n            \"university\": {},\n            \"student\": {},\n            \"teacher\": {},\n            \"universityAdmin\": {\n              \"id\": 0,\n              \"user\": {},\n              \"university\": {}\n            },\n            \"refreshToken\": {\n              \"id\": 0,\n              \"tokenId\": \"string\",\n              \"user\": {},\n              \"expiresAt\": \"2023-10-27T10:00:00Z\",\n              \"revoked\": true,\n              \"revokedAt\": \"2023-10-27T10:00:00Z\",\n              \"replacedByTokenId\": \"string\"\n            },\n            \"resetToken\": \"string\",\n            \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n            \"emailVerified\": true,\n            \"enabled\": true,\n            \"locked\": true,\n            \"expired\": true,\n            \"createdAt\": \"2023-10-27T10:00:00Z\",\n            \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n            \"username\": \"string\",\n            \"accountNonExpired\": true,\n            \"accountNonLocked\": true,\n            \"credentialsNonExpired\": true,\n            \"authorities\": {},\n            \"fullName\": \"string\"\n          },\n          \"university\": {}\n        }\n      ],\n      \"createdAt\": \"2023-10-27T10:00:00Z\",\n      \"faculties\": [\n        {}\n      ],\n      \"studentGroups\": [\n        {}\n      ],\n      \"users\": [\n        {\n          \"id\": 0,\n          \"email\": \"string\",\n          \"phone\": \"string\",\n          \"password\": \"string\",\n          \"firstName\": \"string\",\n          \"lastName\": \"string\",\n          \"role\": \"ROLE_ADMIN\",\n          \"university\": {},\n          \"student\": {},\n          \"teacher\": {},\n          \"universityAdmin\": {\n            \"id\": 0,\n            \"user\": {},\n            \"university\": {}\n          },\n          \"refreshToken\": {\n            \"id\": 0,\n            \"tokenId\": \"string\",\n            \"user\": {},\n            \"expiresAt\": \"2023-10-27T10:00:00Z\",\n            \"revoked\": true,\n            \"revokedAt\": \"2023-10-27T10:00:00Z\",\n            \"replacedByTokenId\": \"string\"\n          },\n          \"resetToken\": \"string\",\n          \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n          \"emailVerified\": true,\n          \"enabled\": true,\n          \"locked\": true,\n          \"expired\": true,\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n          \"username\": \"string\",\n          \"accountNonExpired\": true,\n          \"accountNonLocked\": true,\n          \"credentialsNonExpired\": true,\n          \"authorities\": [\n            {\n              \"authority\": \"string\"\n            }\n          ],\n          \"fullName\": \"string\"\n        }\n      ],\n      \"classes\": [\n        {}\n      ]\n    }\n  },\n  \"curator\": {\n    \"id\": 0,\n    \"teacher\": {},\n    \"studentGroup\": {}\n  },\n  \"schedules\": [\n    {}\n  ],\n  \"students\": [\n    {\n      \"id\": 0,\n      \"user\": null,\n      \"studentGroup\": {},\n      \"courseEnrollments\": [\n        {\n          \"id\": 0,\n          \"student\": {},\n          \"course\": {},\n          \"enrolledAt\": \"2023-10-27T10:00:00Z\"\n        }\n      ],\n      \"courseLessonProgresses\": [\n        {\n          \"id\": 0,\n          \"student\": null,\n          \"courseLesson\": {},\n          \"completedAt\": \"2023-10-27T10:00:00Z\"\n        }\n      ],\n      \"courseTestAttempts\": [\n        {}\n      ],\n      \"semesters\": [\n        {\n          \"id\": 0,\n          \"student\": null,\n          \"takenClasses\": [\n            {}\n          ],\n          \"semesterNumber\": 0,\n          \"startDate\": \"string\",\n          \"endDate\": \"string\",\n          \"isActive\": true,\n          \"gpa\": 0.0,\n          \"totalCredits\": 0\n        }\n      ],\n      \"studentNumber\": \"string\",\n      \"accountNumber\": \"string\",\n      \"parentPhone\": \"string\"\n    }\n  ],\n  \"university\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteStudentGroup",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student-groups/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "student-groups",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllStudentGroups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student-groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "student-groups"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createStudentGroup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/student-groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "student-groups"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"year\": 0,\n  \"faculty\": {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"code\": \"string\",\n    \"monthlyFee\": 0,\n    \"university\": {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"creditsPerSemester\": 0,\n      \"universityAdmins\": [\n        {\n          \"id\": 0,\n          \"user\": {\n            \"id\": 0,\n            \"email\": \"string\",\n            \"phone\": \"string\",\n            \"password\": \"string\",\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"role\": \"ROLE_ADMIN\",\n            \"university\": {},\n            \"student\": {},\n            \"teacher\": {},\n            \"universityAdmin\": {\n              \"id\": 0,\n              \"user\": {},\n              \"university\": {}\n            },\n            \"refreshToken\": {\n              \"id\": 0,\n              \"tokenId\": \"string\",\n              \"user\": {},\n              \"expiresAt\": \"2023-10-27T10:00:00Z\",\n              \"revoked\": true,\n              \"revokedAt\": \"2023-10-27T10:00:00Z\",\n              \"replacedByTokenId\": \"string\"\n            },\n            \"resetToken\": \"string\",\n            \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n            \"emailVerified\": true,\n            \"enabled\": true,\n            \"locked\": true,\n            \"expired\": true,\n            \"createdAt\": \"2023-10-27T10:00:00Z\",\n            \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n            \"username\": \"string\",\n            \"accountNonExpired\": true,\n            \"accountNonLocked\": true,\n            \"credentialsNonExpired\": true,\n            \"authorities\": {},\n            \"fullName\": \"string\"\n          },\n          \"university\": {}\n        }\n      ],\n      \"createdAt\": \"2023-10-27T10:00:00Z\",\n      \"faculties\": [\n        {}\n      ],\n      \"studentGroups\": [\n        {}\n      ],\n      \"users\": [\n        {\n          \"id\": 0,\n          \"email\": \"string\",\n          \"phone\": \"string\",\n          \"password\": \"string\",\n          \"firstName\": \"string\",\n          \"lastName\": \"string\",\n          \"role\": \"ROLE_ADMIN\",\n          \"university\": {},\n          \"student\": {},\n          \"teacher\": {},\n          \"universityAdmin\": {\n            \"id\": 0,\n            \"user\": {},\n            \"university\": {}\n          },\n          \"refreshToken\": {\n            \"id\": 0,\n            \"tokenId\": \"string\",\n            \"user\": {},\n            \"expiresAt\": \"2023-10-27T10:00:00Z\",\n            \"revoked\": true,\n            \"revokedAt\": \"2023-10-27T10:00:00Z\",\n            \"replacedByTokenId\": \"string\"\n          },\n          \"resetToken\": \"string\",\n          \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n          \"emailVerified\": true,\n          \"enabled\": true,\n          \"locked\": true,\n          \"expired\": true,\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n          \"username\": \"string\",\n          \"accountNonExpired\": true,\n          \"accountNonLocked\": true,\n          \"credentialsNonExpired\": true,\n          \"authorities\": [\n            {\n              \"authority\": \"string\"\n            }\n          ],\n          \"fullName\": \"string\"\n        }\n      ],\n      \"classes\": [\n        {}\n      ]\n    }\n  },\n  \"curator\": {\n    \"id\": 0,\n    \"teacher\": {},\n    \"studentGroup\": {}\n  },\n  \"schedules\": [\n    {}\n  ],\n  \"students\": [\n    {\n      \"id\": 0,\n      \"user\": null,\n      \"studentGroup\": {},\n      \"courseEnrollments\": [\n        {\n          \"id\": 0,\n          \"student\": {},\n          \"course\": {},\n          \"enrolledAt\": \"2023-10-27T10:00:00Z\"\n        }\n      ],\n      \"courseLessonProgresses\": [\n        {\n          \"id\": 0,\n          \"student\": null,\n          \"courseLesson\": {},\n          \"completedAt\": \"2023-10-27T10:00:00Z\"\n        }\n      ],\n      \"courseTestAttempts\": [\n        {}\n      ],\n      \"semesters\": [\n        {\n          \"id\": 0,\n          \"student\": null,\n          \"takenClasses\": [\n            {}\n          ],\n          \"semesterNumber\": 0,\n          \"startDate\": \"string\",\n          \"endDate\": \"string\",\n          \"isActive\": true,\n          \"gpa\": 0.0,\n          \"totalCredits\": 0\n        }\n      ],\n      \"studentNumber\": \"string\",\n      \"accountNumber\": \"string\",\n      \"parentPhone\": \"string\"\n    }\n  ],\n  \"university\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "faculty-controller",
+      "item": [
+        {
+          "name": "getFacultyById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateFaculty",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"code\": \"string\",\n  \"monthlyFee\": 0,\n  \"university\": {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"creditsPerSemester\": 0,\n    \"universityAdmins\": [\n      {\n        \"id\": 0,\n        \"user\": {\n          \"id\": 0,\n          \"email\": \"string\",\n          \"phone\": \"string\",\n          \"password\": \"string\",\n          \"firstName\": \"string\",\n          \"lastName\": \"string\",\n          \"role\": \"ROLE_ADMIN\",\n          \"university\": {},\n          \"student\": {},\n          \"teacher\": {\n            \"id\": 0,\n            \"user\": {},\n            \"courses\": [\n              {}\n            ],\n            \"subjects\": [\n              {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": {}\n              }\n            ],\n            \"curator\": {\n              \"id\": 0,\n              \"teacher\": {},\n              \"studentGroup\": {}\n            },\n            \"classes\": {},\n            \"employeeNumber\": \"string\"\n          },\n          \"universityAdmin\": {\n            \"id\": 0,\n            \"user\": {},\n            \"university\": {}\n          },\n          \"refreshToken\": {\n            \"id\": 0,\n            \"tokenId\": \"string\",\n            \"user\": {},\n            \"expiresAt\": \"2023-10-27T10:00:00Z\",\n            \"revoked\": true,\n            \"revokedAt\": \"2023-10-27T10:00:00Z\",\n            \"replacedByTokenId\": \"string\"\n          },\n          \"resetToken\": \"string\",\n          \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n          \"emailVerified\": true,\n          \"enabled\": true,\n          \"locked\": true,\n          \"expired\": true,\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n          \"username\": \"string\",\n          \"accountNonExpired\": true,\n          \"accountNonLocked\": true,\n          \"credentialsNonExpired\": true,\n          \"authorities\": {},\n          \"fullName\": \"string\"\n        },\n        \"university\": {\n          \"id\": 0,\n          \"name\": \"string\",\n          \"creditsPerSemester\": 0,\n          \"universityAdmins\": {},\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"faculties\": [\n            {}\n          ],\n          \"studentGroups\": {},\n          \"users\": [\n            {\n              \"id\": 0,\n              \"email\": \"string\",\n              \"phone\": \"string\",\n              \"password\": \"string\",\n              \"firstName\": \"string\",\n              \"lastName\": \"string\",\n              \"role\": \"ROLE_ADMIN\",\n              \"university\": {},\n              \"student\": {},\n              \"teacher\": {\n                \"id\": 0,\n                \"user\": {},\n                \"courses\": [\n                  {}\n                ],\n                \"subjects\": [\n                  {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"description\": \"string\",\n                    \"credits\": 0,\n                    \"classes\": [\n                      {}\n                    ],\n                    \"teachers\": {}\n                  }\n                ],\n                \"curator\": {\n                  \"id\": 0,\n                  \"teacher\": {},\n                  \"studentGroup\": {}\n                },\n                \"classes\": {},\n                \"employeeNumber\": \"string\"\n              },\n              \"universityAdmin\": {\n                \"id\": 0,\n                \"user\": {},\n                \"university\": {}\n              },\n              \"refreshToken\": {\n                \"id\": 0,\n                \"tokenId\": \"string\",\n                \"user\": {},\n                \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                \"revoked\": true,\n                \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                \"replacedByTokenId\": \"string\"\n              },\n              \"resetToken\": \"string\",\n              \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n              \"emailVerified\": true,\n              \"enabled\": true,\n              \"locked\": true,\n              \"expired\": true,\n              \"createdAt\": \"2023-10-27T10:00:00Z\",\n              \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n              \"username\": \"string\",\n              \"accountNonExpired\": true,\n              \"accountNonLocked\": true,\n              \"credentialsNonExpired\": true,\n              \"authorities\": {},\n              \"fullName\": \"string\"\n            }\n          ],\n          \"classes\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {},\n                    \"takenClasses\": [\n                      {\n                        \"id\": 0,\n                        \"clazz\": {},\n                        \"grades\": [\n                          {\n                            \"id\": 0,\n                            \"takenClass\": {},\n                            \"value\": 0.0,\n                            \"maxValue\": 0.0,\n                            \"gradeType\": \"string\",\n                            \"description\": \"string\",\n                            \"date\": \"string\",\n                            \"createdAt\": \"2023-10-27T10:00:00Z\"\n                          }\n                        ],\n                        \"semester\": {\n                          \"id\": 0,\n                          \"student\": null,\n                          \"takenClasses\": [\n                            {}\n                          ],\n                          \"semesterNumber\": 0,\n                          \"startDate\": \"string\",\n                          \"endDate\": \"string\",\n                          \"isActive\": true,\n                          \"gpa\": 0.0,\n                          \"totalCredits\": 0\n                        },\n                        \"midtermExamScore\": 0,\n                        \"finalExamScore\": 0,\n                        \"totalScore\": 0,\n                        \"gpa\": 0.0\n                      }\n                    ],\n                    \"teacher\": {\n                      \"id\": 0,\n                      \"user\": {\n                        \"id\": 0,\n                        \"email\": \"string\",\n                        \"phone\": \"string\",\n                        \"password\": \"string\",\n                        \"firstName\": \"string\",\n                        \"lastName\": \"string\",\n                        \"role\": \"ROLE_ADMIN\",\n                        \"university\": {},\n                        \"student\": {},\n                        \"teacher\": {},\n                        \"universityAdmin\": {\n                          \"id\": 0,\n                          \"user\": {},\n                          \"university\": {}\n                        },\n                        \"refreshToken\": {\n                          \"id\": 0,\n                          \"tokenId\": \"string\",\n                          \"user\": {},\n                          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                          \"revoked\": true,\n                          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                          \"replacedByTokenId\": \"string\"\n                        },\n                        \"resetToken\": \"string\",\n                        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n                        \"emailVerified\": true,\n                        \"enabled\": true,\n                        \"locked\": true,\n                        \"expired\": true,\n                        \"createdAt\": \"2023-10-27T10:00:00Z\",\n                        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n                        \"username\": \"string\",\n                        \"accountNonExpired\": true,\n                        \"accountNonLocked\": true,\n                        \"credentialsNonExpired\": true,\n                        \"authorities\": {},\n                        \"fullName\": \"string\"\n                      },\n                      \"courses\": [\n                        {}\n                      ],\n                      \"subjects\": [\n                        {}\n                      ],\n                      \"curator\": {\n                        \"id\": 0,\n                        \"teacher\": {},\n                        \"studentGroup\": {}\n                      },\n                      \"classes\": {},\n                      \"employeeNumber\": \"string\"\n                    },\n                    \"university\": null,\n                    \"schedules\": [\n                      {\n                        \"id\": 0,\n                        \"studentGroup\": {},\n                        \"clazz\": {\n                          \"id\": 0,\n                          \"name\": \"string\",\n                          \"faculty\": {},\n                          \"subject\": {},\n                          \"takenClasses\": [\n                            {}\n                          ],\n                          \"teacher\": {},\n                          \"university\": null,\n                          \"schedules\": {},\n                          \"classStatus\": {},\n                          \"credits\": 0\n                        },\n                        \"dayOfWeek\": \"MONDAY\",\n                        \"startTime\": \"string\",\n                        \"endTime\": \"string\",\n                        \"room\": \"string\",\n                        \"lessonNumber\": 0\n                      }\n                    ],\n                    \"classStatus\": {},\n                    \"credits\": 0\n                  }\n                ],\n                \"teachers\": [\n                  {\n                    \"id\": 0,\n                    \"user\": {\n                      \"id\": 0,\n                      \"email\": \"string\",\n                      \"phone\": \"string\",\n                      \"password\": \"string\",\n                      \"firstName\": \"string\",\n                      \"lastName\": \"string\",\n                      \"role\": \"ROLE_ADMIN\",\n                      \"university\": {\n                        \"id\": 0,\n                        \"name\": \"string\",\n                        \"creditsPerSemester\": 0,\n                        \"universityAdmins\": {},\n                        \"createdAt\": \"2023-10-27T10:00:00Z\",\n                        \"faculties\": [\n                          {}\n                        ],\n                        \"studentGroups\": {},\n                        \"users\": [\n                          {}\n                        ],\n                        \"classes\": [\n                          {}\n                        ]\n                      },\n                      \"student\": {\n                        \"id\": 0,\n                        \"user\": null,\n                        \"studentGroup\": {},\n                        \"courseEnrollments\": {},\n                        \"courseLessonProgresses\": {},\n                        \"courseTestAttempts\": {},\n                        \"semesters\": [\n                          {\n                            \"id\": 0,\n                            \"student\": null,\n                            \"takenClasses\": [\n                              {}\n                            ],\n                            \"semesterNumber\": 0,\n                            \"startDate\": \"string\",\n                            \"endDate\": \"string\",\n                            \"isActive\": true,\n                            \"gpa\": 0.0,\n                            \"totalCredits\": 0\n                          }\n                        ],\n                        \"studentNumber\": \"string\",\n                        \"accountNumber\": \"string\",\n                        \"parentPhone\": \"string\"\n                      },\n                      \"teacher\": {},\n                      \"universityAdmin\": {\n                        \"id\": 0,\n                        \"user\": {},\n                        \"university\": {\n                          \"id\": 0,\n                          \"name\": \"string\",\n                          \"creditsPerSemester\": 0,\n                          \"universityAdmins\": {},\n                          \"createdAt\": \"2023-10-27T10:00:00Z\",\n                          \"faculties\": [\n                            {}\n                          ],\n                          \"studentGroups\": {},\n                          \"users\": [\n                            {}\n                          ],\n                          \"classes\": [\n                            {}\n                          ]\n                        }\n                      },\n                      \"refreshToken\": {\n                        \"id\": 0,\n                        \"tokenId\": \"string\",\n                        \"user\": {},\n                        \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                        \"revoked\": true,\n                        \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                        \"replacedByTokenId\": \"string\"\n                      },\n                      \"resetToken\": \"string\",\n                      \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n                      \"emailVerified\": true,\n                      \"enabled\": true,\n                      \"locked\": true,\n                      \"expired\": true,\n                      \"createdAt\": \"2023-10-27T10:00:00Z\",\n                      \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n                      \"username\": \"string\",\n                      \"accountNonExpired\": true,\n                      \"accountNonLocked\": true,\n                      \"credentialsNonExpired\": true,\n                      \"authorities\": {},\n                      \"fullName\": \"string\"\n                    },\n                    \"courses\": [\n                      {}\n                    ],\n                    \"subjects\": {},\n                    \"curator\": {\n                      \"id\": 0,\n                      \"teacher\": {},\n                      \"studentGroup\": {}\n                    },\n                    \"classes\": {},\n                    \"employeeNumber\": \"string\"\n                  }\n                ]\n              },\n              \"takenClasses\": [\n                {\n                  \"id\": 0,\n                  \"clazz\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {\n                      \"id\": 0,\n                      \"name\": \"string\",\n                      \"description\": \"string\",\n                      \"credits\": 0,\n                      \"classes\": [\n                        {\n                          \"id\": 0,\n                          \"name\": \"string\",\n                          \"faculty\": {},\n                          \"subject\": {},\n                          \"takenClasses\": [\n                            {}\n                          ],\n                          \"teacher\": {},\n                          \"university\": null,\n                          \"schedules\": [\n                            {}\n                          ],\n                          \"classStatus\": {},\n                          \"credits\": 0\n                        }\n                      ],\n                      \"teachers\": [\n                        {}\n                      ]\n                    },\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"teacher\": {},\n                    \"university\": null,\n                    \"schedules\": [\n                      {}\n                    ],\n                    \"classStatus\": {},\n                    \"credits\": 0\n                  },\n                  \"grades\": [\n                    {\n                      \"id\": 0,\n                      \"takenClass\": {},\n                      \"value\": 0.0,\n                      \"maxValue\": 0.0,\n                      \"gradeType\": \"string\",\n                      \"description\": \"string\",\n                      \"date\": \"string\",\n                      \"createdAt\": \"2023-10-27T10:00:00Z\"\n                    }\n                  ],\n                  \"semester\": {\n                    \"id\": 0,\n                    \"student\": null,\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"semesterNumber\": 0,\n                    \"startDate\": \"string\",\n                    \"endDate\": \"string\",\n                    \"isActive\": true,\n                    \"gpa\": 0.0,\n                    \"totalCredits\": 0\n                  },\n                  \"midtermExamScore\": 0,\n                  \"finalExamScore\": 0,\n                  \"totalScore\": 0,\n                  \"gpa\": 0.0\n                }\n              ],\n              \"teacher\": {\n                \"id\": 0,\n                \"user\": {\n                  \"id\": 0,\n                  \"email\": \"string\",\n                  \"phone\": \"string\",\n                  \"password\": \"string\",\n                  \"firstName\": \"string\",\n                  \"lastName\": \"string\",\n                  \"role\": \"ROLE_ADMIN\",\n                  \"university\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"creditsPerSemester\": 0,\n                    \"universityAdmins\": {},\n                    \"createdAt\": \"2023-10-27T10:00:00Z\",\n                    \"faculties\": [\n                      {}\n                    ],\n                    \"studentGroups\": {},\n                    \"users\": [\n                      {}\n                    ],\n                    \"classes\": [\n                      {}\n                    ]\n                  },\n                  \"student\": {\n                    \"id\": 0,\n                    \"user\": null,\n                    \"studentGroup\": {},\n                    \"courseEnrollments\": {},\n                    \"courseLessonProgresses\": {},\n                    \"courseTestAttempts\": {},\n                    \"semesters\": [\n                      {\n                        \"id\": 0,\n                        \"student\": null,\n                        \"takenClasses\": [\n                          {}\n                        ],\n                        \"semesterNumber\": 0,\n                        \"startDate\": \"string\",\n                        \"endDate\": \"string\",\n                        \"isActive\": true,\n                        \"gpa\": 0.0,\n                        \"totalCredits\": 0\n                      }\n                    ],\n                    \"studentNumber\": \"string\",\n                    \"accountNumber\": \"string\",\n                    \"parentPhone\": \"string\"\n                  },\n                  \"teacher\": {},\n                  \"universityAdmin\": {\n                    \"id\": 0,\n                    \"user\": {},\n                    \"university\": {\n                      \"id\": 0,\n                      \"name\": \"string\",\n                      \"creditsPerSemester\": 0,\n                      \"universityAdmins\": {},\n                      \"createdAt\": \"2023-10-27T10:00:00Z\",\n                      \"faculties\": [\n                        {}\n                      ],\n                      \"studentGroups\": {},\n                      \"users\": [\n                        {}\n                      ],\n                      \"classes\": [\n                        {}\n                      ]\n                    }\n                  },\n                  \"refreshToken\": {\n                    \"id\": 0,\n                    \"tokenId\": \"string\",\n                    \"user\": {},\n                    \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                    \"revoked\": true,\n                    \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                    \"replacedByTokenId\": \"string\"\n                  },\n                  \"resetToken\": \"string\",\n                  \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n                  \"emailVerified\": true,\n                  \"enabled\": true,\n                  \"locked\": true,\n                  \"expired\": true,\n                  \"createdAt\": \"2023-10-27T10:00:00Z\",\n                  \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n                  \"username\": \"string\",\n                  \"accountNonExpired\": true,\n                  \"accountNonLocked\": true,\n                  \"credentialsNonExpired\": true,\n                  \"authorities\": {},\n                  \"fullName\": \"string\"\n                },\n                \"courses\": [\n                  {}\n                ],\n                \"subjects\": [\n                  {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"description\": \"string\",\n                    \"credits\": 0,\n                    \"classes\": [\n                      {\n                        \"id\": 0,\n                        \"name\": \"string\",\n                        \"faculty\": {},\n                        \"subject\": {},\n                        \"takenClasses\": [\n                          {}\n                        ],\n                        \"teacher\": {},\n                        \"university\": null,\n                        \"schedules\": {},\n                        \"classStatus\": {},\n                        \"credits\": 0\n                      }\n                    ],\n                    \"teachers\": {}\n                  }\n                ],\n                \"curator\": {\n                  \"id\": 0,\n                  \"teacher\": {},\n                  \"studentGroup\": {}\n                },\n                \"classes\": {},\n                \"employeeNumber\": \"string\"\n              },\n              \"university\": null,\n              \"schedules\": [\n                {\n                  \"id\": 0,\n                  \"studentGroup\": {},\n                  \"clazz\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {\n                      \"id\": 0,\n                      \"name\": \"string\",\n                      \"description\": \"string\",\n                      \"credits\": 0,\n                      \"classes\": [\n                        {}\n                      ],\n                      \"teachers\": [\n                        {}\n                      ]\n                    },\n                    \"takenClasses\": {},\n                    \"teacher\": {},\n                    \"university\": null,\n                    \"schedules\": [\n                      {}\n                    ],\n                    \"classStatus\": {},\n                    \"credits\": 0\n                  },\n                  \"dayOfWeek\": \"MONDAY\",\n                  \"startTime\": \"string\",\n                  \"endTime\": \"string\",\n                  \"room\": \"string\",\n                  \"lessonNumber\": 0\n                }\n              ],\n              \"classStatus\": {},\n              \"credits\": 0\n            }\n          ]\n        }\n      }\n    ],\n    \"createdAt\": \"2023-10-27T10:00:00Z\",\n    \"faculties\": [\n      {}\n    ],\n    \"studentGroups\": [\n      {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"year\": 0,\n        \"faculty\": {},\n        \"curator\": {\n          \"id\": 0,\n          \"teacher\": {},\n          \"studentGroup\": {}\n        },\n        \"schedules\": [\n          {}\n        ],\n        \"students\": [\n          {\n            \"id\": 0,\n            \"user\": null,\n            \"studentGroup\": {},\n            \"courseEnrollments\": {},\n            \"courseLessonProgresses\": {},\n            \"courseTestAttempts\": {},\n            \"semesters\": [\n              {\n                \"id\": 0,\n                \"student\": null,\n                \"takenClasses\": {},\n                \"semesterNumber\": 0,\n                \"startDate\": \"string\",\n                \"endDate\": \"string\",\n                \"isActive\": true,\n                \"gpa\": 0.0,\n                \"totalCredits\": 0\n              }\n            ],\n            \"studentNumber\": \"string\",\n            \"accountNumber\": \"string\",\n            \"parentPhone\": \"string\"\n          }\n        ],\n        \"university\": null\n      }\n    ],\n    \"users\": [\n      {\n        \"id\": 0,\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"password\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"role\": \"ROLE_ADMIN\",\n        \"university\": {\n          \"id\": 0,\n          \"name\": \"string\",\n          \"creditsPerSemester\": 0,\n          \"universityAdmins\": [\n            {\n              \"id\": 0,\n              \"user\": {},\n              \"university\": {}\n            }\n          ],\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"faculties\": [\n            {}\n          ],\n          \"studentGroups\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"year\": 0,\n              \"faculty\": {},\n              \"curator\": {\n                \"id\": 0,\n                \"teacher\": {},\n                \"studentGroup\": {}\n              },\n              \"schedules\": {},\n              \"students\": [\n                {}\n              ],\n              \"university\": null\n            }\n          ],\n          \"users\": {},\n          \"classes\": [\n            {}\n          ]\n        },\n        \"student\": {\n          \"id\": 0,\n          \"user\": null,\n          \"studentGroup\": {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"year\": 0,\n            \"faculty\": {},\n            \"curator\": {\n              \"id\": 0,\n              \"teacher\": {},\n              \"studentGroup\": {}\n            },\n            \"schedules\": [\n              {}\n            ],\n            \"students\": [\n              {}\n            ],\n            \"university\": null\n          },\n          \"courseEnrollments\": [\n            {\n              \"id\": 0,\n              \"student\": {},\n              \"course\": {\n                \"id\": 0,\n                \"title\": \"string\",\n                \"description\": \"string\",\n                \"enrollmentPasswordHash\": \"string\",\n                \"isPublic\": true,\n                \"university\": null,\n                \"teacher\": {},\n                \"modules\": [\n                  {\n                    \"id\": 0,\n                    \"title\": \"string\",\n                    \"orderIndex\": 0,\n                    \"course\": {},\n                    \"courseLessons\": {},\n                    \"courseTests\": [\n                      {}\n                    ]\n                  }\n                ],\n                \"createdAt\": \"2023-10-27T10:00:00Z\",\n                \"updatedAt\": \"2023-10-27T10:00:00Z\"\n              },\n              \"enrolledAt\": \"2023-10-27T10:00:00Z\"\n            }\n          ],\n          \"courseLessonProgresses\": [\n            {\n              \"id\": 0,\n              \"student\": null,\n              \"courseLesson\": {\n                \"id\": 0,\n                \"title\": \"string\",\n                \"content\": \"string\",\n                \"contentType\": \"TEXT\",\n                \"fileUrl\": \"string\",\n                \"orderIndex\": 0,\n                \"module\": {\n                  \"id\": 0,\n                  \"title\": \"string\",\n                  \"orderIndex\": 0,\n                  \"course\": {},\n                  \"courseLessons\": {},\n                  \"courseTests\": [\n                    {}\n                  ]\n                },\n                \"courseLessonProgresses\": {}\n              },\n              \"completedAt\": \"2023-10-27T10:00:00Z\"\n            }\n          ],\n          \"courseTestAttempts\": [\n            {\n              \"id\": 0,\n              \"student\": null,\n              \"courseTest\": {},\n              \"score\": 0.0,\n              \"maxScore\": 0.0,\n              \"startedAt\": \"2023-10-27T10:00:00Z\",\n              \"submittedAt\": \"2023-10-27T10:00:00Z\",\n              \"answers\": {}\n            }\n          ],\n          \"semesters\": [\n            {\n              \"id\": 0,\n              \"student\": null,\n              \"takenClasses\": [\n                {\n                  \"id\": 0,\n                  \"clazz\": {},\n                  \"grades\": {},\n                  \"semester\": {},\n                  \"midtermExamScore\": 0,\n                  \"finalExamScore\": 0,\n                  \"totalScore\": 0,\n                  \"gpa\": 0.0\n                }\n              ],\n              \"semesterNumber\": 0,\n              \"startDate\": \"string\",\n              \"endDate\": \"string\",\n              \"isActive\": true,\n              \"gpa\": 0.0,\n              \"totalCredits\": 0\n            }\n          ],\n          \"studentNumber\": \"string\",\n          \"accountNumber\": \"string\",\n          \"parentPhone\": \"string\"\n        },\n        \"teacher\": {\n          \"id\": 0,\n          \"user\": {},\n          \"courses\": [\n            {}\n          ],\n          \"subjects\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {},\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": [\n                    {}\n                  ],\n                  \"classStatus\": \"PASSED\",\n                  \"credits\": 0\n                }\n              ],\n              \"teachers\": {}\n            }\n          ],\n          \"curator\": {\n            \"id\": 0,\n            \"teacher\": {},\n            \"studentGroup\": {}\n          },\n          \"classes\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": [\n                  {}\n                ]\n              },\n              \"takenClasses\": [\n                {}\n              ],\n              \"teacher\": {},\n              \"university\": null,\n              \"schedules\": [\n                {}\n              ],\n              \"classStatus\": {},\n              \"credits\": 0\n            }\n          ],\n          \"employeeNumber\": \"string\"\n        },\n        \"universityAdmin\": {\n          \"id\": 0,\n          \"user\": {},\n          \"university\": {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"creditsPerSemester\": 0,\n            \"universityAdmins\": [\n              {\n                \"id\": 0,\n                \"user\": {},\n                \"university\": {}\n              }\n            ],\n            \"createdAt\": \"2023-10-27T10:00:00Z\",\n            \"faculties\": [\n              {}\n            ],\n            \"studentGroups\": [\n              {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"year\": 0,\n                \"faculty\": {},\n                \"curator\": {\n                  \"id\": 0,\n                  \"teacher\": {},\n                  \"studentGroup\": {}\n                },\n                \"schedules\": [\n                  {}\n                ],\n                \"students\": [\n                  {}\n                ],\n                \"university\": null\n              }\n            ],\n            \"users\": [\n              {}\n            ],\n            \"classes\": [\n              {}\n            ]\n          }\n        },\n        \"refreshToken\": {\n          \"id\": 0,\n          \"tokenId\": \"string\",\n          \"user\": {},\n          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n          \"revoked\": true,\n          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n          \"replacedByTokenId\": \"string\"\n        },\n        \"resetToken\": \"string\",\n        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n        \"emailVerified\": true,\n        \"enabled\": true,\n        \"locked\": true,\n        \"expired\": true,\n        \"createdAt\": \"2023-10-27T10:00:00Z\",\n        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n        \"username\": \"string\",\n        \"accountNonExpired\": true,\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"authorities\": [\n          {\n            \"authority\": \"string\"\n          }\n        ],\n        \"fullName\": \"string\"\n      }\n    ],\n    \"classes\": [\n      {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"faculty\": {},\n        \"subject\": {\n          \"id\": 0,\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"credits\": 0,\n          \"classes\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {},\n              \"takenClasses\": [\n                {\n                  \"id\": 0,\n                  \"clazz\": {},\n                  \"grades\": [\n                    {\n                      \"id\": 0,\n                      \"takenClass\": {},\n                      \"value\": 0.0,\n                      \"maxValue\": 0.0,\n                      \"gradeType\": \"string\",\n                      \"description\": \"string\",\n                      \"date\": \"string\",\n                      \"createdAt\": \"2023-10-27T10:00:00Z\"\n                    }\n                  ],\n                  \"semester\": {\n                    \"id\": 0,\n                    \"student\": null,\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"semesterNumber\": 0,\n                    \"startDate\": \"string\",\n                    \"endDate\": \"string\",\n                    \"isActive\": true,\n                    \"gpa\": 0.0,\n                    \"totalCredits\": 0\n                  },\n                  \"midtermExamScore\": 0,\n                  \"finalExamScore\": 0,\n                  \"totalScore\": 0,\n                  \"gpa\": 0.0\n                }\n              ],\n              \"teacher\": {\n                \"id\": 0,\n                \"user\": {\n                  \"id\": 0,\n                  \"email\": \"string\",\n                  \"phone\": \"string\",\n                  \"password\": \"string\",\n                  \"firstName\": \"string\",\n                  \"lastName\": \"string\",\n                  \"role\": \"ROLE_ADMIN\",\n                  \"university\": {},\n                  \"student\": {},\n                  \"teacher\": {},\n                  \"universityAdmin\": {\n                    \"id\": 0,\n                    \"user\": {},\n                    \"university\": {}\n                  },\n                  \"refreshToken\": {\n                    \"id\": 0,\n                    \"tokenId\": \"string\",\n                    \"user\": {},\n                    \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                    \"revoked\": true,\n                    \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                    \"replacedByTokenId\": \"string\"\n                  },\n                  \"resetToken\": \"string\",\n                  \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n                  \"emailVerified\": true,\n                  \"enabled\": true,\n                  \"locked\": true,\n                  \"expired\": true,\n                  \"createdAt\": \"2023-10-27T10:00:00Z\",\n                  \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n                  \"username\": \"string\",\n                  \"accountNonExpired\": true,\n                  \"accountNonLocked\": true,\n                  \"credentialsNonExpired\": true,\n                  \"authorities\": [\n                    {\n                      \"authority\": \"string\"\n                    }\n                  ],\n                  \"fullName\": \"string\"\n                },\n                \"courses\": [\n                  {}\n                ],\n                \"subjects\": [\n                  {}\n                ],\n                \"curator\": {\n                  \"id\": 0,\n                  \"teacher\": {},\n                  \"studentGroup\": {}\n                },\n                \"classes\": [\n                  {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {},\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"teacher\": {},\n                    \"university\": null,\n                    \"schedules\": [\n                      {}\n                    ],\n                    \"classStatus\": {},\n                    \"credits\": 0\n                  }\n                ],\n                \"employeeNumber\": \"string\"\n              },\n              \"university\": null,\n              \"schedules\": [\n                {\n                  \"id\": 0,\n                  \"studentGroup\": {},\n                  \"clazz\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {},\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"teacher\": {},\n                    \"university\": null,\n                    \"schedules\": {},\n                    \"classStatus\": \"PASSED\",\n                    \"credits\": 0\n                  },\n                  \"dayOfWeek\": \"MONDAY\",\n                  \"startTime\": \"string\",\n                  \"endTime\": \"string\",\n                  \"room\": \"string\",\n                  \"lessonNumber\": 0\n                }\n              ],\n              \"classStatus\": \"PASSED\",\n              \"credits\": 0\n            }\n          ],\n          \"teachers\": [\n            {\n              \"id\": 0,\n              \"user\": {\n                \"id\": 0,\n                \"email\": \"string\",\n                \"phone\": \"string\",\n                \"password\": \"string\",\n                \"firstName\": \"string\",\n                \"lastName\": \"string\",\n                \"role\": \"ROLE_ADMIN\",\n                \"university\": {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"creditsPerSemester\": 0,\n                  \"universityAdmins\": [\n                    {\n                      \"id\": 0,\n                      \"user\": {},\n                      \"university\": {}\n                    }\n                  ],\n                  \"createdAt\": \"2023-10-27T10:00:00Z\",\n                  \"faculties\": [\n                    {}\n                  ],\n                  \"studentGroups\": [\n                    {}\n                  ],\n                  \"users\": [\n                    {}\n                  ],\n                  \"classes\": [\n                    {}\n                  ]\n                },\n                \"student\": {\n                  \"id\": 0,\n                  \"user\": null,\n                  \"studentGroup\": {},\n                  \"courseEnrollments\": [\n                    {\n                      \"id\": 0,\n                      \"student\": {},\n                      \"course\": {},\n                      \"enrolledAt\": \"2023-10-27T10:00:00Z\"\n                    }\n                  ],\n                  \"courseLessonProgresses\": [\n                    {\n                      \"id\": 0,\n                      \"student\": null,\n                      \"courseLesson\": {},\n                      \"completedAt\": \"2023-10-27T10:00:00Z\"\n                    }\n                  ],\n                  \"courseTestAttempts\": [\n                    {}\n                  ],\n                  \"semesters\": [\n                    {\n                      \"id\": 0,\n                      \"student\": null,\n                      \"takenClasses\": [\n                        {}\n                      ],\n                      \"semesterNumber\": 0,\n                      \"startDate\": \"string\",\n                      \"endDate\": \"string\",\n                      \"isActive\": true,\n                      \"gpa\": 0.0,\n                      \"totalCredits\": 0\n                    }\n                  ],\n                  \"studentNumber\": \"string\",\n                  \"accountNumber\": \"string\",\n                  \"parentPhone\": \"string\"\n                },\n                \"teacher\": {},\n                \"universityAdmin\": {\n                  \"id\": 0,\n                  \"user\": {},\n                  \"university\": {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"creditsPerSemester\": 0,\n                    \"universityAdmins\": [\n                      {}\n                    ],\n                    \"createdAt\": \"2023-10-27T10:00:00Z\",\n                    \"faculties\": [\n                      {}\n                    ],\n                    \"studentGroups\": [\n                      {}\n                    ],\n                    \"users\": [\n                      {}\n                    ],\n                    \"classes\": [\n                      {}\n                    ]\n                  }\n                },\n                \"refreshToken\": {\n                  \"id\": 0,\n                  \"tokenId\": \"string\",\n                  \"user\": {},\n                  \"expiresAt\": \"2023-10-27T10:00:00Z\",\n                  \"revoked\": true,\n                  \"revokedAt\": \"2023-10-27T10:00:00Z\",\n                  \"replacedByTokenId\": \"string\"\n                },\n                \"resetToken\": \"string\",\n                \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n                \"emailVerified\": true,\n                \"enabled\": true,\n                \"locked\": true,\n                \"expired\": true,\n                \"createdAt\": \"2023-10-27T10:00:00Z\",\n                \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n                \"username\": \"string\",\n                \"accountNonExpired\": true,\n                \"accountNonLocked\": true,\n                \"credentialsNonExpired\": true,\n                \"authorities\": [\n                  {\n                    \"authority\": \"string\"\n                  }\n                ],\n                \"fullName\": \"string\"\n              },\n              \"courses\": [\n                {}\n              ],\n              \"subjects\": {},\n              \"curator\": {\n                \"id\": 0,\n                \"teacher\": {},\n                \"studentGroup\": {}\n              },\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {},\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": [\n                    {}\n                  ],\n                  \"classStatus\": {},\n                  \"credits\": 0\n                }\n              ],\n              \"employeeNumber\": \"string\"\n            }\n          ]\n        },\n        \"takenClasses\": [\n          {\n            \"id\": 0,\n            \"clazz\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": [\n                  {}\n                ]\n              },\n              \"takenClasses\": {},\n              \"teacher\": {},\n              \"university\": null,\n              \"schedules\": [\n                {}\n              ],\n              \"classStatus\": \"PASSED\",\n              \"credits\": 0\n            },\n            \"grades\": {},\n            \"semester\": {\n              \"id\": 0,\n              \"student\": null,\n              \"takenClasses\": [\n                {}\n              ],\n              \"semesterNumber\": 0,\n              \"startDate\": \"string\",\n              \"endDate\": \"string\",\n              \"isActive\": true,\n              \"gpa\": 0.0,\n              \"totalCredits\": 0\n            },\n            \"midtermExamScore\": 0,\n            \"finalExamScore\": 0,\n            \"totalScore\": 0,\n            \"gpa\": 0.0\n          }\n        ],\n        \"teacher\": {\n          \"id\": 0,\n          \"user\": {\n            \"id\": 0,\n            \"email\": \"string\",\n            \"phone\": \"string\",\n            \"password\": \"string\",\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"role\": \"ROLE_ADMIN\",\n            \"university\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"creditsPerSemester\": 0,\n              \"universityAdmins\": [\n                {\n                  \"id\": 0,\n                  \"user\": {},\n                  \"university\": {}\n                }\n              ],\n              \"createdAt\": \"2023-10-27T10:00:00Z\",\n              \"faculties\": [\n                {}\n              ],\n              \"studentGroups\": [\n                {}\n              ],\n              \"users\": [\n                {}\n              ],\n              \"classes\": [\n                {}\n              ]\n            },\n            \"student\": {\n              \"id\": 0,\n              \"user\": null,\n              \"studentGroup\": {},\n              \"courseEnrollments\": [\n                {\n                  \"id\": 0,\n                  \"student\": {},\n                  \"course\": {},\n                  \"enrolledAt\": \"2023-10-27T10:00:00Z\"\n                }\n              ],\n              \"courseLessonProgresses\": [\n                {\n                  \"id\": 0,\n                  \"student\": null,\n                  \"courseLesson\": {},\n                  \"completedAt\": \"2023-10-27T10:00:00Z\"\n                }\n              ],\n              \"courseTestAttempts\": [\n                {}\n              ],\n              \"semesters\": [\n                {\n                  \"id\": 0,\n                  \"student\": null,\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"semesterNumber\": 0,\n                  \"startDate\": \"string\",\n                  \"endDate\": \"string\",\n                  \"isActive\": true,\n                  \"gpa\": 0.0,\n                  \"totalCredits\": 0\n                }\n              ],\n              \"studentNumber\": \"string\",\n              \"accountNumber\": \"string\",\n              \"parentPhone\": \"string\"\n            },\n            \"teacher\": {},\n            \"universityAdmin\": {\n              \"id\": 0,\n              \"user\": {},\n              \"university\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"creditsPerSemester\": 0,\n                \"universityAdmins\": [\n                  {\n                    \"id\": 0,\n                    \"user\": {},\n                    \"university\": {}\n                  }\n                ],\n                \"createdAt\": \"2023-10-27T10:00:00Z\",\n                \"faculties\": [\n                  {}\n                ],\n                \"studentGroups\": [\n                  {}\n                ],\n                \"users\": [\n                  {}\n                ],\n                \"classes\": [\n                  {}\n                ]\n              }\n            },\n            \"refreshToken\": {\n              \"id\": 0,\n              \"tokenId\": \"string\",\n              \"user\": {},\n              \"expiresAt\": \"2023-10-27T10:00:00Z\",\n              \"revoked\": true,\n              \"revokedAt\": \"2023-10-27T10:00:00Z\",\n              \"replacedByTokenId\": \"string\"\n            },\n            \"resetToken\": \"string\",\n            \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n            \"emailVerified\": true,\n            \"enabled\": true,\n            \"locked\": true,\n            \"expired\": true,\n            \"createdAt\": \"2023-10-27T10:00:00Z\",\n            \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n            \"username\": \"string\",\n            \"accountNonExpired\": true,\n            \"accountNonLocked\": true,\n            \"credentialsNonExpired\": true,\n            \"authorities\": [\n              {\n                \"authority\": \"string\"\n              }\n            ],\n            \"fullName\": \"string\"\n          },\n          \"courses\": [\n            {}\n          ],\n          \"subjects\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {},\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": [\n                    {}\n                  ],\n                  \"classStatus\": \"PASSED\",\n                  \"credits\": 0\n                }\n              ],\n              \"teachers\": {}\n            }\n          ],\n          \"curator\": {\n            \"id\": 0,\n            \"teacher\": {},\n            \"studentGroup\": {}\n          },\n          \"classes\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": [\n                  {}\n                ]\n              },\n              \"takenClasses\": [\n                {}\n              ],\n              \"teacher\": {},\n              \"university\": null,\n              \"schedules\": [\n                {}\n              ],\n              \"classStatus\": {},\n              \"credits\": 0\n            }\n          ],\n          \"employeeNumber\": \"string\"\n        },\n        \"university\": null,\n        \"schedules\": [\n          {\n            \"id\": 0,\n            \"studentGroup\": {},\n            \"clazz\": {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": [\n                  {}\n                ]\n              },\n              \"takenClasses\": {},\n              \"teacher\": {},\n              \"university\": null,\n              \"schedules\": [\n                {}\n              ],\n              \"classStatus\": \"PASSED\",\n              \"credits\": 0\n            },\n            \"dayOfWeek\": \"MONDAY\",\n            \"startTime\": \"string\",\n            \"endTime\": \"string\",\n            \"room\": \"string\",\n            \"lessonNumber\": 0\n          }\n        ],\n        \"classStatus\": \"PASSED\",\n        \"credits\": 0\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteFaculty",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllFaculties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createFaculty",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"code\": \"string\",\n  \"monthlyFee\": 0,\n  \"university\": {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"creditsPerSemester\": 0,\n    \"universityAdmins\": [\n      {\n        \"id\": 0,\n        \"user\": {\n          \"id\": 0,\n          \"email\": \"string\",\n          \"phone\": \"string\",\n          \"password\": \"string\",\n          \"firstName\": \"string\",\n          \"lastName\": \"string\",\n          \"role\": \"ROLE_ADMIN\",\n          \"university\": {},\n          \"student\": {},\n          \"teacher\": {\n            \"id\": 0,\n            \"user\": {},\n            \"courses\": [\n              {}\n            ],\n            \"subjects\": [\n              {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {\n                    \"id\": 0,\n                    \"name\": \"string\",\n                    \"faculty\": {},\n                    \"subject\": {},\n                    \"takenClasses\": [\n                      {}\n                    ],\n                    \"teacher\": {},\n                    \"university\": null,\n                    \"schedules\": [\n                      {}\n                    ],\n                    \"classStatus\": {},\n                    \"credits\": 0\n                  }\n                ],\n                \"teachers\": {}\n              }\n            ],\n            \"curator\": {\n              \"id\": 0,\n              \"teacher\": {},\n              \"studentGroup\": {}\n            },\n            \"classes\": {},\n            \"employeeNumber\": \"string\"\n          },\n          \"universityAdmin\": {\n            \"id\": 0,\n            \"user\": {},\n            \"university\": {}\n          },\n          \"refreshToken\": {\n            \"id\": 0,\n            \"tokenId\": \"string\",\n            \"user\": {},\n            \"expiresAt\": \"2023-10-27T10:00:00Z\",\n            \"revoked\": true,\n            \"revokedAt\": \"2023-10-27T10:00:00Z\",\n            \"replacedByTokenId\": \"string\"\n          },\n          \"resetToken\": \"string\",\n          \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n          \"emailVerified\": true,\n          \"enabled\": true,\n          \"locked\": true,\n          \"expired\": true,\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n          \"username\": \"string\",\n          \"accountNonExpired\": true,\n          \"accountNonLocked\": true,\n          \"credentialsNonExpired\": true,\n          \"authorities\": {},\n          \"fullName\": \"string\"\n        },\n        \"university\": {}\n      }\n    ],\n    \"createdAt\": \"2023-10-27T10:00:00Z\",\n    \"faculties\": [\n      {}\n    ],\n    \"studentGroups\": [\n      {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"year\": 0,\n        \"faculty\": {},\n        \"curator\": {\n          \"id\": 0,\n          \"teacher\": {},\n          \"studentGroup\": {}\n        },\n        \"schedules\": [\n          {}\n        ],\n        \"students\": [\n          {}\n        ],\n        \"university\": null\n      }\n    ],\n    \"users\": [\n      {\n        \"id\": 0,\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"password\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"role\": \"ROLE_ADMIN\",\n        \"university\": {},\n        \"student\": {},\n        \"teacher\": {\n          \"id\": 0,\n          \"user\": {},\n          \"courses\": [\n            {}\n          ],\n          \"subjects\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"description\": \"string\",\n              \"credits\": 0,\n              \"classes\": [\n                {\n                  \"id\": 0,\n                  \"name\": \"string\",\n                  \"faculty\": {},\n                  \"subject\": {},\n                  \"takenClasses\": [\n                    {}\n                  ],\n                  \"teacher\": {},\n                  \"university\": null,\n                  \"schedules\": {},\n                  \"classStatus\": \"PASSED\",\n                  \"credits\": 0\n                }\n              ],\n              \"teachers\": {}\n            }\n          ],\n          \"curator\": {\n            \"id\": 0,\n            \"teacher\": {},\n            \"studentGroup\": {}\n          },\n          \"classes\": [\n            {\n              \"id\": 0,\n              \"name\": \"string\",\n              \"faculty\": {},\n              \"subject\": {\n                \"id\": 0,\n                \"name\": \"string\",\n                \"description\": \"string\",\n                \"credits\": 0,\n                \"classes\": [\n                  {}\n                ],\n                \"teachers\": [\n                  {}\n                ]\n              },\n              \"takenClasses\": [\n                {}\n              ],\n              \"teacher\": {},\n              \"university\": null,\n              \"schedules\": [\n                {}\n              ],\n              \"classStatus\": {},\n              \"credits\": 0\n            }\n          ],\n          \"employeeNumber\": \"string\"\n        },\n        \"universityAdmin\": {\n          \"id\": 0,\n          \"user\": {},\n          \"university\": {}\n        },\n        \"refreshToken\": {\n          \"id\": 0,\n          \"tokenId\": \"string\",\n          \"user\": {},\n          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n          \"revoked\": true,\n          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n          \"replacedByTokenId\": \"string\"\n        },\n        \"resetToken\": \"string\",\n        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n        \"emailVerified\": true,\n        \"enabled\": true,\n        \"locked\": true,\n        \"expired\": true,\n        \"createdAt\": \"2023-10-27T10:00:00Z\",\n        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n        \"username\": \"string\",\n        \"accountNonExpired\": true,\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"authorities\": [\n          {\n            \"authority\": \"string\"\n          }\n        ],\n        \"fullName\": \"string\"\n      }\n    ],\n    \"classes\": [\n      {}\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getFacultiesByUniversity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faculties/university",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "university"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "course-controller",
+      "item": [
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"enrollmentPassword\": \"string\",\n  \"isPublic\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"enrollmentPassword\": \"string\",\n  \"isPublic\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addModule",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/:courseId/modules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "{courseId}",
+                "modules"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addLesson",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/:courseId/modules/:moduleId/lessons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "{courseId}",
+                "modules",
+                "{moduleId}",
+                "lessons"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                },
+                {
+                  "key": "moduleId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"string\",\n  \"content\": \"string\",\n  \"contentType\": \"TEXT\",\n  \"fileUrl\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "myCourses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/my",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "my"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "catalog",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/courses/catalog",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "courses",
+                "catalog"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user-controller",
+      "item": [
+        {
+          "name": "getAllUsers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"phone\": \"string\",\n  \"password\": \"string\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"role\": \"ROLE_ADMIN\",\n  \"universityId\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getUserById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteUser",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllUsersFromUniversity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/university",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "university"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getUserByEmail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/email/:email",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "email",
+                "{email}"
+              ],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "test-controller",
+      "item": [
+        {
+          "name": "createTest",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"moduleId\": 0,\n  \"title\": \"string\",\n  \"timeLimitMinutes\": 0,\n  \"randomizeQuestions\": true,\n  \"randomizeChoices\": true,\n  \"passingScore\": 0.0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getQuestions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests/:testId/questions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests",
+                "{testId}",
+                "questions"
+              ],
+              "variable": [
+                {
+                  "key": "testId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests/:testId/questions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests",
+                "{testId}",
+                "questions"
+              ],
+              "variable": [
+                {
+                  "key": "testId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"string\",\n  \"questionType\": \"SINGLE_CHOICE\",\n  \"choices\": [\n    {\n      \"text\": \"string\",\n      \"isCorrect\": true\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "startAttempt",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests/:testId/attempts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests",
+                "{testId}",
+                "attempts"
+              ],
+              "variable": [
+                {
+                  "key": "testId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "submitAttempt",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests/attempts/:attemptId/submit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests",
+                "attempts",
+                "{attemptId}",
+                "submit"
+              ],
+              "variable": [
+                {
+                  "key": "attemptId",
+                  "value": "1"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [\n    {\n      \"questionId\": 0,\n      \"selectedChoiceIds\": [\n        0\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTest",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tests/:testId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tests",
+                "{testId}"
+              ],
+              "variable": [
+                {
+                  "key": "testId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "schedule-controller",
+      "item": [
+        {
+          "name": "createSchedule",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentGroupId\": 0,\n  \"classId\": 0,\n  \"dayOfWeek\": \"MONDAY\",\n  \"startTime\": \"string\",\n  \"endTime\": \"string\",\n  \"room\": \"string\",\n  \"lessonNumber\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "generateSchedule",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule/generate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule",
+                "generate"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dayStartTime\": \"string\",\n  \"dayEndTime\": \"string\",\n  \"lessonDurationMinutes\": 0,\n  \"breakDurationMinutes\": 0,\n  \"classMappings\": [\n    {\n      \"classId\": 0,\n      \"studentGroupIds\": [\n        0\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyWeeklySchedule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule/week",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule",
+                "week"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTeacherSchedule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule/teacher/:teacherId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule",
+                "teacher",
+                "{teacherId}"
+              ],
+              "variable": [
+                {
+                  "key": "teacherId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getClassSchedule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule/class/:classGroupId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule",
+                "class",
+                "{classGroupId}"
+              ],
+              "variable": [
+                {
+                  "key": "classGroupId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteSchedule",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/schedule/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedule",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth-controller",
+      "item": [
+        {
+          "name": "processResetPassword",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reset-password"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "token",
+                  "value": ""
+                },
+                {
+                  "key": "password",
+                  "value": ""
+                },
+                {
+                  "key": "confirmPassword",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "register"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"role\": \"ROLE_ADMIN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "processForgotPassword",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "forgot-password"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "email",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "adminRegistration",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/registerNewUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "registerNewUser"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"phoneNumber\": \"string\",\n  \"role\": \"ROLE_ADMIN\",\n  \"university\": {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"creditsPerSemester\": 0,\n    \"universityAdmins\": [\n      {\n        \"id\": 0,\n        \"user\": {\n          \"id\": 0,\n          \"email\": \"string\",\n          \"phone\": \"string\",\n          \"password\": \"string\",\n          \"firstName\": \"string\",\n          \"lastName\": \"string\",\n          \"role\": \"ROLE_ADMIN\",\n          \"university\": {},\n          \"student\": {},\n          \"teacher\": {},\n          \"universityAdmin\": {\n            \"id\": 0,\n            \"user\": {},\n            \"university\": {}\n          },\n          \"refreshToken\": {\n            \"id\": 0,\n            \"tokenId\": \"string\",\n            \"user\": {},\n            \"expiresAt\": \"2023-10-27T10:00:00Z\",\n            \"revoked\": true,\n            \"revokedAt\": \"2023-10-27T10:00:00Z\",\n            \"replacedByTokenId\": \"string\"\n          },\n          \"resetToken\": \"string\",\n          \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n          \"emailVerified\": true,\n          \"enabled\": true,\n          \"locked\": true,\n          \"expired\": true,\n          \"createdAt\": \"2023-10-27T10:00:00Z\",\n          \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n          \"username\": \"string\",\n          \"accountNonExpired\": true,\n          \"accountNonLocked\": true,\n          \"credentialsNonExpired\": true,\n          \"authorities\": {},\n          \"fullName\": \"string\"\n        },\n        \"university\": {}\n      }\n    ],\n    \"createdAt\": \"2023-10-27T10:00:00Z\",\n    \"faculties\": [\n      {\n        \"id\": 0,\n        \"name\": \"string\",\n        \"code\": \"string\",\n        \"monthlyFee\": 0,\n        \"university\": {}\n      }\n    ],\n    \"studentGroups\": [\n      {}\n    ],\n    \"users\": [\n      {\n        \"id\": 0,\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"password\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"role\": \"ROLE_ADMIN\",\n        \"university\": {},\n        \"student\": {},\n        \"teacher\": {},\n        \"universityAdmin\": {\n          \"id\": 0,\n          \"user\": {},\n          \"university\": {}\n        },\n        \"refreshToken\": {\n          \"id\": 0,\n          \"tokenId\": \"string\",\n          \"user\": {},\n          \"expiresAt\": \"2023-10-27T10:00:00Z\",\n          \"revoked\": true,\n          \"revokedAt\": \"2023-10-27T10:00:00Z\",\n          \"replacedByTokenId\": \"string\"\n        },\n        \"resetToken\": \"string\",\n        \"resetTokenExpiry\": \"2023-10-27T10:00:00Z\",\n        \"emailVerified\": true,\n        \"enabled\": true,\n        \"locked\": true,\n        \"expired\": true,\n        \"createdAt\": \"2023-10-27T10:00:00Z\",\n        \"lastModifiedAt\": \"2023-10-27T10:00:00Z\",\n        \"username\": \"string\",\n        \"accountNonExpired\": true,\n        \"accountNonLocked\": true,\n        \"credentialsNonExpired\": true,\n        \"authorities\": [\n          {\n            \"authority\": \"string\"\n          }\n        ],\n        \"fullName\": \"string\"\n      }\n    ],\n    \"classes\": [\n      {}\n    ]\n  },\n  \"studentGroupId\": 0,\n  \"subjects\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"credits\": 0,\n      \"classes\": [\n        {\n          \"id\": 0,\n          \"name\": \"string\",\n          \"faculty\": {\n            \"id\": 0,\n            \"name\": \"string\",\n            \"code\": \"string\",\n            \"monthlyFee\": 0,\n            \"university\": {}\n          },\n          \"subject\": {},\n          \"takenClasses\": [\n            {}\n          ],\n          \"teacher\": {},\n          \"university\": null,\n          \"schedules\": [\n            {}\n          ],\n          \"classStatus\": \"PASSED\",\n          \"credits\": 0\n        }\n      ],\n      \"teachers\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "progress-controller",
+      "item": [
+        {
+          "name": "markLessonComplete",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/progress/lessons/:lessonId/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "progress",
+                "lessons",
+                "{lessonId}",
+                "complete"
+              ],
+              "variable": [
+                {
+                  "key": "lessonId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyCourseProgress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/progress/courses/:courseId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "progress",
+                "courses",
+                "{courseId}"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentProgress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/progress/courses/:courseId/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "progress",
+                "courses",
+                "{courseId}",
+                "students"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "message-controller",
+      "item": [
+        {
+          "name": "getMyMessages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/messages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "messages"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sendMessage",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/messages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "messages"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipientId\": 0,\n  \"content\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyConversations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/messages/conversations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "messages",
+                "conversations"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getConversation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/messages/conversations/:otherUserId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "messages",
+                "conversations",
+                "{otherUserId}"
+              ],
+              "variable": [
+                {
+                  "key": "otherUserId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "grade-controller",
+      "item": [
+        {
+          "name": "getMyGrades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createGrade",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": 0,\n  \"takenClassId\": 0,\n  \"value\": 0.0,\n  \"maxValue\": 0.0,\n  \"gradeType\": \"string\",\n  \"description\": \"string\",\n  \"date\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyGradesBySubject",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades/subject/:subjectId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "subject",
+                "{subjectId}"
+              ],
+              "variable": [
+                {
+                  "key": "subjectId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentGrades",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades/student/:studentId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "student",
+                "{studentId}"
+              ],
+              "variable": [
+                {
+                  "key": "studentId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyGradeAverages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades/averages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "averages"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteGrade",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grades/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "enrollment-controller",
+      "item": [
+        {
+          "name": "enroll",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "enrollments"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseId\": 0,\n  \"password\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "myEnrollments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/enrollments/my",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "enrollments",
+                "my"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "courseEnrollments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/enrollments/course/:courseId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "enrollments",
+                "course",
+                "{courseId}"
+              ],
+              "variable": [
+                {
+                  "key": "courseId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "attendance-controller",
+      "item": [
+        {
+          "name": "getMyAttendance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "markAttendance",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduleId\": 0,\n  \"date\": \"string\",\n  \"attendanceRecords\": [\n    {\n      \"studentId\": 0,\n      \"status\": \"PRESENT\",\n      \"notes\": \"string\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getStudentAttendance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance/student/:studentId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance",
+                "student",
+                "{studentId}"
+              ],
+              "variable": [
+                {
+                  "key": "studentId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyAttendanceStats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance",
+                "stats"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getScheduleAttendance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance/schedule/:scheduleId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance",
+                "schedule",
+                "{scheduleId}"
+              ],
+              "variable": [
+                {
+                  "key": "scheduleId",
+                  "value": "1"
+                }
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAttendanceStats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance/reports/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance",
+                "reports",
+                "attendance"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "classGroupId",
+                  "value": ""
+                },
+                {
+                  "key": "startDate",
+                  "value": ""
+                },
+                {
+                  "key": "endDate",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyAttendanceByDateRange",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/attendance/range",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "attendance",
+                "range"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": ""
+                },
+                {
+                  "key": "endDate",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "announcement-controller",
+      "item": [
+        {
+          "name": "getMyAnnouncements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "announcements"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createAnnouncement",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "announcements"
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"string\",\n  \"content\": \"string\",\n  \"targetRole\": \"ROLE_ADMIN\",\n  \"targetStudentGroupId\": 0,\n  \"important\": true,\n  \"expiresAt\": \"2023-10-27T10:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllAnnouncements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/announcements/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "announcements",
+                "all"
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteAnnouncement",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/announcements/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "announcements",
+                "{id}"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  }
+}

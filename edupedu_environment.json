@@ -1,0 +1,17 @@
+{
+  "id": "ba0193b3-dc6b-41cf-ad9a-6facbf08f5bf",
+  "name": "EduPedu Local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "enabled": true
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
