@@ -1,10 +1,10 @@
 {
-  "id": "ba0193b3-dc6b-41cf-ad9a-6facbf08f5bf",
+  "id": "1c0b4519-8aa3-462d-b810-454e595e9123",
   "name": "EduPedu Local",
   "values": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8080",
+      "value": "http://127.0.0.1:8080",
       "enabled": true
     },
     {

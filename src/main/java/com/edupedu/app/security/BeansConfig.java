@@ -34,11 +34,11 @@ public class BeansConfig {
         return config.getAuthenticationManager();
     }
 
-    @Bean
-    public JwtFilter jwtFilter(final JwtService jwtService,
-                               final UserDetailsService userDetailsService) {
-        return new JwtFilter(jwtService, userDetailsService);
-    }
+    // @Bean
+    // public JwtFilter jwtFilter(final JwtService jwtService,
+    //                            final UserDetailsService userDetailsService) {
+    //     return new JwtFilter(jwtService, userDetailsService);
+    // }
 
     @Bean
     public FilterRegistrationBean<JwtFilter> jwtFilterRegistration(final JwtFilter jwtFilter) {

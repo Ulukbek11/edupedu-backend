@@ -19,6 +19,7 @@
 8. [Enums Reference](#8-enums-reference)
 9. [Role-Based Access Matrix](#9-role-based-access-matrix)
 10. [Error Handling](#10-error-handling)
+11. [Test Credentials (Data Seeder)](#11-test-credentials-data-seeder)
 
 ---
 
@@ -827,3 +828,27 @@ async function apiCall(url, options) {
 │          │ ←── { new tokens }      │          │
 └─────────┘                         └──────────┘
 ```
+
+---
+
+## 11. Test Credentials (Data Seeder)
+
+The backend database is automatically seeded with the following test accounts on startup. You can use these immediately for frontend testing.
+
+| Role | Email | Password | Details |
+|------|-------|----------|---------|
+| **Platform Admin** | `superadmin@edupage.com` | `super123` | Super Admin |
+| **University Admin** | `admin@edupage.com` | `admin123` | Admin for Alatoo International University |
+| **Teacher** | `teacher@edupage.com` | `teacher123` | John Smith (Math, Physics) |
+| **Teacher** | `teacher1@edupage.com` | `teacher123` | Jane Doe (Computer Science) |
+| **Student** | `student1@edupage.com` | `student123` | Alice Johnson (Group 10A) |
+
+> **Note:** All users are fully enabled and ready for authentication via the `/api/v1/auth/login` endpoint.
+
+### Sample Course Content
+For testing course progress and enrollments, the following content is also automatically seeded:
+* **Course:** `Introduction to Computer Science` (Teacher: Jane Doe)
+  * **Module:** `Module 1: Getting Started`
+    * **Lesson:** `Variables in Programming` (Text content)
+    * **Quiz/Test:** `Quiz 1: Basics of Programming` (15 min limit)
+      * Includes sample `SINGLE_CHOICE` questions (e.g. "What is a variable?").
