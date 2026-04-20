@@ -243,7 +243,31 @@ POST /api/v1/admin/registerNewUser
 | GET    | `/api/v1/admin/students/unassigned`            | Unassigned students            | 200    |
 | PUT    | `/api/v1/admin/students/assign/{id}`           | Assign student (TODO)          | 200    |
 | PUT    | `/api/v1/admin/students/{studentId}/group`     | Assign to group                | 200    |
-| PUT    | `/api/v1/admin/bulk-assign`                    | Bulk assign to group           | 200    |
+| GET    | `/api/v1/admin/bulk-assign`                    | Bulk assign to group           | 200    |
+
+**Student Response Structure:**
+```json
+{
+  "id": 1,
+  "user_id": 10,
+  "email": "student@example.com",
+  "first_name": "Alice",
+  "last_name": "Johnson",
+  "full_name": "Alice Johnson",
+  "student_number": "STU-2024-001",
+  "account_number": "ACC-001",
+  "parent_phone": "+1234567890",
+  "student_group_id": 1,
+  "student_group_name": "Group 10A",
+  "university_id": 1,
+  "email_verified": true,
+  "enabled": true,
+  "locked": false,
+  "expired": false,
+  "created_at": "2026-04-20T10:00:00",
+  "last_modified_at": "2026-04-20T10:00:00"
+}
+```
 
 **Create Student:**
 ```json
@@ -278,6 +302,30 @@ POST /api/v1/admin/registerNewUser
 | PUT    | `/api/v1/admin/teachers/{id}`                    | Update teacher          | 200    |
 | DELETE | `/api/v1/admin/teachers/{id}`                    | Delete teacher          | 204    |
 | GET    | `/api/v1/admin/teachers/getWorkload`             | Teacher workload report | 200    |
+
+**Teacher Response Structure:**
+```json
+{
+  "id": 1,
+  "user_id": 5,
+  "email": "teacher@example.com",
+  "first_name": "John",
+  "last_name": "Smith",
+  "full_name": "John Smith",
+  "employee_number": "EMP-001",
+  "subject_ids": [1, 2],
+  "subject_names": ["Mathematics", "Physics"],
+  "curator_id": null,
+  "curated_student_group_name": null,
+  "university_id": 1,
+  "email_verified": true,
+  "enabled": true,
+  "locked": false,
+  "expired": false,
+  "created_at": "2026-04-20T10:00:00",
+  "last_modified_at": "2026-04-20T10:00:00"
+}
+```
 
 **Create Teacher:**
 ```json
@@ -600,7 +648,86 @@ POST /api/v1/admin/registerNewUser
 
 > **Requires:** Any authenticated user
 
-### 7.1 Enrollments
+### 7.1 User Profile
+
+| Method | Endpoint              | Description           | Status |
+|--------|-----------------------|-----------------------|--------|
+| GET    | `/api/v1/users/me`    | Get current user info | 200    |
+
+**Response (Polymorphic):**
+The response structure depends on the authenticated user's role.
+
+#### For Students (`ROLE_STUDENT`):
+```json
+{
+  "id": 1,
+  "user_id": 10,
+  "email": "student@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "full_name": "John Doe",
+  "student_number": "ST-2026-001",
+  "account_number": "ACC-7788",
+  "parent_phone": "+123456789",
+  "student_group_id": 1,
+  "student_group_name": "CS-202",
+  "university_id": 1,
+  "email_verified": true,
+  "enabled": true,
+  "locked": false,
+  "expired": false,
+  "created_at": "2026-04-20T10:00:00",
+  "last_modified_at": "2026-04-20T10:00:00"
+}
+```
+
+#### For Teachers (`ROLE_TEACHER`):
+```json
+{
+  "id": 5,
+  "user_id": 11,
+  "email": "teacher@example.com",
+  "first_name": "Jane",
+  "last_name": "Smith",
+  "full_name": "Jane Smith",
+  "employee_number": "EMP-9988",
+  "subject_ids": [1, 2],
+  "subject_names": ["Mathematics", "Physics"],
+  "curator_id": 1,
+  "curated_student_group_name": "CS-202",
+  "university_id": 1,
+  "email_verified": true,
+  "enabled": true,
+  "locked": false,
+  "expired": false,
+  "created_at": "2026-04-20T10:00:00",
+  "last_modified_at": "2026-04-20T10:00:00"
+}
+```
+
+#### For Others (Admins, etc.):
+```json
+{
+  "id": 1,
+  "email": "admin@example.com",
+  "phone": "+1234567890",
+  "first_name": "Admin",
+  "last_name": "User",
+  "full_name": "Admin User",
+  "role": "ROLE_ADMIN",
+  "university_id": 1,
+  "email_verified": true,
+  "enabled": true,
+  "locked": false,
+  "expired": false,
+  "created_at": "2026-04-20T10:00:00",
+  "last_modified_at": "2026-04-20T10:00:00"
+}
+```
+
+---
+
+### 7.2 Enrollments
 
 | Method | Endpoint                     | Description           | Status |
 |--------|-------------------------------|-----------------------|--------|
@@ -616,7 +743,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.2 Grades (Read)
+### 7.3 Grades (Read)
 
 | Method | Endpoint                              | Description                        | Status |
 |--------|---------------------------------------|------------------------------------|--------|
@@ -626,7 +753,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.3 Schedule (Read)
+### 7.4 Schedule (Read)
 
 | Method | Endpoint                                 | Description                      | Status |
 |--------|------------------------------------------|----------------------------------|--------|
@@ -638,7 +765,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.4 Attendance (Read)
+### 7.5 Attendance (Read)
 
 | Method | Endpoint                                                        | Description              | Status |
 |--------|------------------------------------------------------------------|--------------------------|--------|
@@ -652,7 +779,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.5 Announcements (Read)
+### 7.6 Announcements (Read)
 
 | Method | Endpoint                          | Description                  | Status |
 |--------|-----------------------------------|------------------------------|--------|
@@ -661,7 +788,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.6 Messages
+### 7.7 Messages
 
 | Method | Endpoint                                       | Description               | Status |
 |--------|------------------------------------------------|---------------------------|--------|
@@ -681,7 +808,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.7 Tests (Student)
+### 7.8 Tests (Student)
 
 | Method | Endpoint                                       | Description                | Status |
 |--------|-------------------------------------------------|----------------------------|--------|
@@ -702,7 +829,7 @@ POST /api/v1/admin/registerNewUser
 
 ---
 
-### 7.8 Progress
+### 7.9 Progress
 
 | Method | Endpoint                                        | Description             | Status |
 |--------|-------------------------------------------------|-------------------------|--------|

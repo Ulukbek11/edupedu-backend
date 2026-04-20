@@ -135,7 +135,15 @@ public class StudentService {
                 student.getStudentNumber(),
                 student.getAccountNumber(),
                 student.getParentPhone(),
-                student.getStudentGroup() != null ? student.getStudentGroup().getId() : null
+                student.getStudentGroup() != null ? student.getStudentGroup().getId() : null,
+                student.getStudentGroup().getName(),
+                student.getUser().getUniversity() != null ? student.getUser().getUniversity().getId() : null,
+                student.getUser().isEmailVerified(),
+                student.getUser().isEnabled(),
+                student.getUser().isLocked(),
+                student.getUser().isExpired(),
+                student.getUser().getCreatedAt(),
+                student.getUser().getLastModifiedAt()
         );
     }
 

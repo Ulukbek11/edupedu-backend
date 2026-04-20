@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/users/me")
-    public ResponseEntity<UserResponse> getMe(@AuthenticationPrincipal(expression = "getPrincipal()") User user) {
-        return new ResponseEntity<>(userService.getUserById(user.getId()), HttpStatus.OK);
+    public ResponseEntity<Object> getMe(@AuthenticationPrincipal User user) {
+        return new ResponseEntity<>(userService.getCurrentUser(user), HttpStatus.OK);
     }
     
 

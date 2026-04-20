@@ -115,8 +115,13 @@ public class TeacherService {
         List<Long> subjectIds = teacher.getSubjects() != null
                 ? teacher.getSubjects().stream().map(Subject::getId).collect(Collectors.toList())
                 : List.of();
+        
+        List<String> subjectNames = teacher.getSubjects() != null
+                ? teacher.getSubjects().stream().map(Subject::getName).collect(Collectors.toList())
+                : List.of();
 
         Long curatorId = teacher.getCurator() != null ? teacher.getCurator().getId() : null;
+        String curatedStudentGroup = teacher.getCurator() != null ? teacher.getCurator().getStudentGroup().getName() : null;
 
         return new TeacherResponse(
                 teacher.getId(),
@@ -127,7 +132,16 @@ public class TeacherService {
                 teacher.getUser().getFullName(),
                 teacher.getEmployeeNumber(),
                 subjectIds,
-                curatorId
+                subjectNames,
+                curatorId,
+                curatedStudentGroup,
+                teacher.getUser().getUniversity() != null ? teacher.getUser().getUniversity().getId() : null,
+                teacher.getUser().isEmailVerified(),
+                teacher.getUser().isEnabled(),
+                teacher.getUser().isLocked(),
+                teacher.getUser().isExpired(),
+                teacher.getUser().getCreatedAt(),
+                teacher.getUser().getLastModifiedAt()
         );
     }
 
