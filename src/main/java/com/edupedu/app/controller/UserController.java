@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,12 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
+
+    @GetMapping("/users/me")
+    public ResponseEntity<UserResponse> getMe(@AuthenticationPrincipal(expression = "getPrincipal()") User user) {
+        return new ResponseEntity<>(userService.getUserById(user.getId()), HttpStatus.OK);
+    }
+    
 
     @GetMapping("/admin/university")
     public ResponseEntity<List<UserResponse>> getAllUsersFromUniversity(@RequestParam Long universityId) {

@@ -41,3 +41,6 @@ test_apis.sh
 test_all_apis.py
 api_test_suite.py
 app.log
+.frontend/
+frontend/
+package-lock.json

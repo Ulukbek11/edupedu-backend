@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,10 +44,12 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http.cors(cors -> cors.configurationSource(corsConfigurationSource))
+                   .csrf(AbstractHttpConfigurer::disable)
                    .authorizeHttpRequests(auth -> auth
                                                       .requestMatchers("/api/v1/auth/**").permitAll()
                                                       .requestMatchers(PUBLIC_URLS).permitAll()
